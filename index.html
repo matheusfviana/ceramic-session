@@ -158,12 +158,14 @@
             color: var(--text-main);
         }
 
-        /* Mapa Minimalista */
+        /*  Minimalista */
+        /* Mapa Colorido */
         #mapa-brasil {
             width: 100%;
             height: 60vh;
             border: 1px solid var(--text-main);
-            filter: grayscale(100%) opacity(0.8);
+            /* O filtro grayscale que deixava preto e branco foi removido */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Adicionei uma sombra leve para dar um destaque na página */
         }
 
         /* Tutorial Cerâmica (Linhas Divisórias Finas) */
@@ -238,8 +240,8 @@
 
     <nav>
         <button class="tab-btn active" onclick="openTab('inicio')">Início</button>
-        <button class="tab-btn" onclick="openTab('fotos')">Fotografia</button>
-        <button class="tab-btn" onclick="openTab('arte')">Galeria de Arte</button>
+        <button class="tab-btn" onclick="openTab('fotos')">Registros</button>
+        <button class="tab-btn" onclick="openTab('arte')">Galeria</button>
         <button class="tab-btn" onclick="openTab('mapa', true)">Diário de Bordo</button>
         <button class="tab-btn" onclick="openTab('ceramica')">Oficina</button>
     </nav>
@@ -250,13 +252,13 @@
         <div id="inicio" class="tab-content active" style="margin-top: 10vh;">
             <h1>1 ano de baby e baby</h1>
             <p style="margin-top: 40px;">
-                Um espaço reservado para celebrar a nossa história, as nossas viagens e a arte de construirmos algo juntos.
+                Celebrando a nossa história, o nosso amor e nossa expressão dele em forma de arte.
             </p>
         </div>
 
         <!-- FOTOGRAFIA -->
         <div id="fotos" class="tab-content">
-            <h2>Nossos Momentos</h2>
+            <h2>Nossos registros</h2>
             <div class="grid-galeria">
                 <div class="cartao">
                     <img src="assets/foto1.jpg" alt="Foto 1" onerror="this.src='https://via.placeholder.com/600x800/E0E0E0/111111?text=FOTO'">
@@ -277,7 +279,7 @@
 
         <!-- GALERIA DE ARTE -->
         <div id="arte" class="tab-content">
-            <h2>Acervo e Criações</h2>
+            <h2>Nosso Acervo</h2>
             <div class="grid-galeria">
                 <div class="cartao">
                     <img src="assets/anime.jpg" alt="Abertura de Anime" onerror="this.src='https://via.placeholder.com/600x800/E0E0E0/111111?text=VÍDEO'">
@@ -300,7 +302,7 @@
         <!-- MAPA -->
         <div id="mapa" class="tab-content">
             <h2>Onde Andamos</h2>
-            <p style="margin-bottom: 60px;">Selecione os pontos para acessar nossos registros geográficos.</p>
+            <p style="margin-bottom: 60px;">Lugares em que nosso amor foi cultivado</p>
             <div id="mapa-brasil"></div>
         </div>
 

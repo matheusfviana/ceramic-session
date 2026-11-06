@@ -3,172 +3,289 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nosso 1º Ano - Oficina de Cerâmica</title>
+    <title>Nosso 1º Ano</title>
+    
+    <!-- Biblioteca do Mapa Interativo (Leaflet) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <style>
         :root {
-            --terracota: #C27A62;
-            --barro: #8C5C4A;
-            --fundo: #F9F6F0;
-            --texto: #4A4A4A;
+            --cor-principal: #C27A62; /* Terracota */
+            --cor-fundo: #F9F6F0;
+            --cor-texto: #4A4A4A;
+            --cor-destaque: #8C5C4A;
         }
+
         body {
-            background-color: var(--fundo);
-            color: var(--texto);
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 2vw;
+            padding: 0;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            text-align: center;
+            height: 100vh;
         }
-        .container {
-            max-width: 1200px;
-            width: 90%;
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            margin-top: 20px;
-            display: none; /* Escondido por padrão, controlado pelo JS */
-        }
-        .active {
-            display: block;
-            animation: fadeIn 0.8s ease-in-out;
-        }
-        h1 {
-            color: var(--barro);
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-        }
-        h2 {
-            color: var(--terracota);
-            font-size: 2.5rem;
-        }
-        p, li {
-            font-size: 1.8rem;
-            line-height: 1.6;
-            text-align: left;
-        }
-        .ideia-card {
-            background: var(--fundo);
+
+        /* Menu Superior para a TV */
+        nav {
+            background-color: white;
             padding: 20px;
-            border-left: 8px solid var(--terracota);
-            margin-bottom: 20px;
-            border-radius: 0 10px 10px 0;
-        }
-        .nav-buttons {
-            margin-top: 40px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
+            flex-wrap: wrap;
+            z-index: 1000;
         }
-        button {
-            background-color: var(--terracota);
-            color: white;
-            border: none;
-            padding: 20px 40px;
-            font-size: 1.8rem;
+
+        .tab-btn {
+            background-color: transparent;
+            color: var(--cor-texto);
+            border: 2px solid var(--cor-principal);
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            font-weight: bold;
             border-radius: 12px;
             cursor: pointer;
-            transition: transform 0.2s, background 0.2s;
+            transition: all 0.3s;
         }
-        button:hover {
-            background-color: var(--barro);
+
+        .tab-btn.active, .tab-btn:hover {
+            background-color: var(--cor-principal);
+            color: white;
             transform: scale(1.05);
         }
-        .youtube-placeholder {
-            background: #eee;
+
+        /* Área de Conteúdo */
+        .content-area {
+            flex: 1;
             padding: 40px;
-            border: 2px dashed #ccc;
-            font-size: 1.5rem;
-            color: #888;
-            margin: 20px 0;
+            overflow-y: auto;
         }
+
+        .tab-content {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        h1, h2 {
+            color: var(--cor-destaque);
+            text-align: center;
+        }
+
+        h1 { font-size: 3.5rem; margin-bottom: 10px; }
+        h2 { font-size: 2.5rem; margin-bottom: 30px; }
+        p { font-size: 1.5rem; line-height: 1.6; text-align: center; }
+
+        /* Grid de Fotos e Galeria */
+        .grid-galeria {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .cartao {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .cartao img, .cartao video {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            background-color: #ddd; /* Fundo enquanto não tem imagem */
+        }
+
+        .cartao-info {
+            padding: 20px;
+        }
+        .cartao-info h3 { font-size: 1.8rem; margin: 0 0 10px 0; color: var(--cor-principal); }
+        .cartao-info p { font-size: 1.2rem; margin: 0; }
+
+        /* Mapa */
+        #mapa-brasil {
+            width: 100%;
+            height: 60vh;
+            border-radius: 20px;
+            border: 4px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Tutorial Cerâmica */
+        .passo-ceramica {
+            background: white;
+            padding: 30px;
+            border-left: 8px solid var(--cor-principal);
+            border-radius: 0 15px 15px 0;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <!-- Tela 1: Início -->
-    <div id="step1" class="container active">
-        <h1>Feliz 1 Ano! ❤️</h1>
-        <p style="text-align: center;">Bem-vinda à nossa Oficina de Cerâmica particular.</p>
-        <p style="text-align: center;">Hoje vamos criar algo para durar e conectar nossas casas.</p>
-        <div class="nav-buttons">
-            <button onclick="nextStep(2)">Começar o Roteiro ➔</button>
-        </div>
-    </div>
+    <!-- Navegação -->
+    <nav>
+        <button class="tab-btn active" onclick="openTab('inicio')">🏠 Início</button>
+        <button class="tab-btn" onclick="openTab('fotos')">📸 Nossas Fotos</button>
+        <button class="tab-btn" onclick="openTab('arte')">🎨 Galeria de Arte</button>
+        <button class="tab-btn" onclick="openTab('mapa', true)">🗺️ Nosso Mapa</button>
+        <button class="tab-btn" onclick="openTab('ceramica')">🏺 Oficina</button>
+    </nav>
 
-    <!-- Tela 2: Preparação -->
-    <div id="step2" class="container">
-        <h2>1. Preparando a Massa</h2>
-        <p>A cerâmica fria seca com o ar, então precisamos trabalhar com as mãos úmidas e amassar bem antes de modelar.</p>
-        <ul>
-            <li>Forre a mesa (para não sujar os móveis).</li>
-            <li>Deixe um potinho com água do lado.</li>
-            <li>Sove a massa por uns 3 minutos para tirar as bolhas de ar e evitar rachaduras.</li>
-        </ul>
-        <div class="youtube-placeholder">
-            [Espaço para o seu vídeo do YouTube: Como sovar a massa]
-            <br>
-            <!-- Substitua esta div pelo código "Incorporar" (iframe) do vídeo do YouTube -->
-        </div>
-        <div class="nav-buttons">
-            <button onclick="nextStep(1)">⬅ Voltar</button>
-            <button onclick="nextStep(3)">Ver Ideias de Peças ➔</button>
-        </div>
-    </div>
-
-    <!-- Tela 3: Ideias -->
-    <div id="step3" class="container">
-        <h2>2. O que vamos criar?</h2>
+    <div class="content-area">
         
-        <div class="ideia-card">
-            <h3>Ideia A: Pratinhos para as Chaves</h3>
-            <p>Um para o seu apartamento e outro para o meu. Podemos fazer o formato das nossas mãos ou carimbar texturas que gostamos.</p>
+        <!-- ABA: INÍCIO -->
+        <div id="inicio" class="tab-content active">
+            <h1>Feliz 1 Ano, Camila! ❤️</h1>
+            <p>Este espaço foi criado para guardarmos nossa história, nossas viagens, nossas artes e para guiar a nossa oficina de hoje.</p>
+            <p>Use o controle da TV para navegar pelo menu acima.</p>
         </div>
 
-        <div class="ideia-card">
-            <h3>Ideia B: Escultura Conectada (Metades)</h3>
-            <p>Duas peças que só fazem sentido quando estão juntas (ex: um sol e uma lua, ou duas metades abstratas que se encaixam perfeitamente). Quando um visitar o apê do outro, leva a sua metade.</p>
+        <!-- ABA: FOTOS -->
+        <div id="fotos" class="tab-content">
+            <h2>Nossos Momentos</h2>
+            <div class="grid-galeria">
+                <!-- INFRA: Duplique o bloco <div class="cartao"> abaixo para adicionar mais fotos -->
+                <div class="cartao">
+                    <img src="assets/foto1.jpg" alt="Nossa Foto 1" onerror="this.src='https://via.placeholder.com/400x300?text=Sua+Foto+Aqui'">
+                    <div class="cartao-info">
+                        <h3>O começo</h3>
+                        <p>Descrição da foto vai aqui.</p>
+                    </div>
+                </div>
+                <div class="cartao">
+                    <img src="assets/foto2.jpg" alt="Nossa Foto 2" onerror="this.src='https://via.placeholder.com/400x300?text=Sua+Foto+Aqui'">
+                    <div class="cartao-info">
+                        <h3>Dia especial</h3>
+                        <p>Descrição da foto vai aqui.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <div class="nav-buttons">
-            <button onclick="nextStep(2)">⬅ Voltar</button>
-            <button onclick="nextStep(4)">Passo a Passo e Pintura ➔</button>
-        </div>
-    </div>
 
-    <!-- Tela 4: Acabamento -->
-    <div id="step4" class="container">
-        <h2>3. Secagem e Pintura</h2>
-        <p><strong>Secagem:</strong> A peça precisa secar na sombra por 24h a 48h. Não coloque no sol para não trincar!</p>
-        <p><strong>Pintura:</strong> Depois de totalmente seca e branca, vamos usar tinta acrílica.</p>
-        <ul>
-            <li>Lixar levemente as bordas se ficarem ásperas.</li>
-            <li>Fazer uma base branca antes da cor final.</li>
-            <li>Finalizar com verniz (fosco ou brilhante) para impermeabilizar.</li>
-        </ul>
-        <div class="nav-buttons">
-            <button onclick="nextStep(3)">⬅ Voltar</button>
-            <button onclick="nextStep(1)">Voltar ao Início 🏠</button>
+        <!-- ABA: GALERIA DE ARTE -->
+        <div id="arte" class="tab-content">
+            <h2>Nossas Criações</h2>
+            <div class="grid-galeria">
+                <!-- INFRA: Card do Vídeo de Anime -->
+                <div class="cartao">
+                    <!-- Troque a tag <img> por <video controls> quando for colocar o vídeo real -->
+                    <img src="assets/anime.jpg" alt="Abertura de Anime" onerror="this.src='https://via.placeholder.com/400x300?text=Capa+do+Video'">
+                    <div class="cartao-info">
+                        <h3>Abertura de Anime</h3>
+                        <p>A música e o vídeo que criei de nós dois com o Scooby.</p>
+                    </div>
+                </div>
+                
+                <!-- INFRA: Card para as cerâmicas futuras -->
+                <div class="cartao">
+                    <img src="assets/ceramica-pronta.jpg" alt="Cerâmica" onerror="this.src='https://via.placeholder.com/400x300?text=Espa%C3%A7o+para+Cer%C3%A2mica'">
+                    <div class="cartao-info">
+                        <h3>Nossas Peças</h3>
+                        <p>Em breve, as fotos das peças que vão ficar nos nossos apartamentos.</p>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <!-- ABA: MAPA INTERATIVO -->
+        <div id="mapa" class="tab-content">
+            <h2>Por Onde Andamos</h2>
+            <p>Clique nos marcadores para ver nossas histórias em cada lugar.</p>
+            <div id="mapa-brasil"></div>
+        </div>
+
+        <!-- ABA: OFICINA DE CERÂMICA -->
+        <div id="ceramica" class="tab-content">
+            <h2>Oficina de Cerâmica Fria</h2>
+            
+            <div class="passo-ceramica">
+                <h3>1. Preparação da Massa</h3>
+                <p>Forre a mesa e deixe um pote com água próximo. Sove a massa com as mãos úmidas por cerca de 3 minutos. Isso remove bolhas de ar e evita que a peça rache ao secar.</p>
+            </div>
+
+            <div class="passo-ceramica">
+                <h3>2. Modelagem</h3>
+                <p><strong>Ideia:</strong> Pratinhos para as chaves (um para cada apartamento) ou duas peças que se encaixam. Trabalhe os detalhes com paciência. Se a massa secar, umedeça os dedos.</p>
+            </div>
+
+            <div class="passo-ceramica">
+                <h3>3. Secagem e Pintura</h3>
+                <p>Deixe secar na sombra por 24 a 48 horas (longe do sol direto). Quando estiver totalmente branca, podemos lixar as bordas, pintar com tinta acrílica e finalizar com verniz.</p>
+                <br>
+                <div align="center">
+                    <!-- INFRA: Coloque o link de Incorporar do YouTube (iframe) aqui -->
+                    <p style="color: #888; border: 2px dashed #ccc; padding: 20px;">[Cole o IFRAME do YouTube do tutorial aqui]</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        function nextStep(stepNumber) {
-            // Esconde todas as telas
-            document.querySelectorAll('.container').forEach(el => {
-                el.classList.remove('active');
+        let mapInitialized = false;
+        let map;
+
+        // Lógica de troca de abas
+        function openTab(tabId, isMap = false) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+
+            // O mapa precisa ser carregado/redimensionado apenas quando a aba estiver visível
+            if (isMap) {
+                setTimeout(initMap, 100); 
+            }
+        }
+
+        // Lógica do Mapa Interativo
+        function initMap() {
+            if (mapInitialized) {
+                map.invalidateSize(); // Corrige bug visual do mapa em abas ocultas
+                return;
+            }
+            
+            // Centraliza o mapa no Brasil (latitude, longitude, zoom)
+            map = L.map('mapa-brasil').setView([-22.5, -44.0], 7);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap'
+            }).addTo(map);
+
+            // INFRA: Adicione ou edite seus marcadores aqui
+            const locais = [
+                { lat: -23.2198, lng: -44.7130, titulo: "Paraty, RJ", desc: "Aquele passeio de caiaque e os plânctons bioluminescentes em Paraty Mirim." },
+                { lat: -22.9068, lng: -43.1729, titulo: "Rio de Janeiro, RJ", desc: "Nossos dias no Rio!" },
+                { lat: -22.5050, lng: -43.1786, titulo: "Petrópolis, RJ", desc: "Clima gostoso na serra fluminense." },
+                { lat: -23.0754, lng: -44.9622, titulo: "Cunha, SP", desc: "Nosso final de semana relaxante no sítio." }
+            ];
+
+            locais.forEach(local => {
+                L.marker([local.lat, local.lng]).addTo(map)
+                 .bindPopup(`<b>${local.titulo}</b><br>${local.desc}`);
             });
-            // Mostra a tela desejada
-            document.getElementById('step' + stepNumber).classList.add('active');
-            // Sobe para o topo suavemente
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            mapInitialized = true;
         }
     </script>
 </body>

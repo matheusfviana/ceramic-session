@@ -155,4 +155,207 @@
         .cartao-info h3 { 
             font-size: 1.8rem; 
             margin: 0 0 10px 0; 
-            font-style: italic
+            font-style: italic;
+        }
+        
+        .cartao-info p { 
+            font-size: 1.1rem; 
+            margin: 0; 
+        }
+
+        /* Mapa Chic */
+        #mapa-brasil {
+            width: 100%;
+            height: 55vh;
+            border: 1px solid rgba(0,0,0,0.1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+            filter: grayscale(20%) contrast(0.9); /* Deixa o mapa mais neutro */
+        }
+
+        /* Tutorial Cerâmica */
+        .passo-ceramica {
+            background: var(--card-bg);
+            padding: 40px;
+            border-top: 3px solid var(--accent);
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .passo-ceramica h3 {
+            text-align: left;
+            font-size: 2rem;
+            margin-top: 0;
+            color: var(--accent);
+        }
+        
+        .passo-ceramica p {
+            text-align: left;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navegação Minimalista -->
+    <nav>
+        <button class="tab-btn active" onclick="openTab('inicio')">Início</button>
+        <button class="tab-btn" onclick="openTab('fotos')">Fotografia</button>
+        <button class="tab-btn" onclick="openTab('arte')">Galeria de Arte</button>
+        <button class="tab-btn" onclick="openTab('mapa', true)">Nosso Mapa</button>
+        <button class="tab-btn" onclick="openTab('ceramica')">Oficina</button>
+    </nav>
+
+    <div class="content-area">
+        
+        <!-- ABA: INÍCIO -->
+        <div id="inicio" class="tab-content active" style="margin-top: 8vh;">
+            <h1>1 ano de baby e baby</h1>
+            <p style="margin-top: 30px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                Um espaço reservado para celebrar a nossa história, as nossas viagens e a arte de construirmos algo juntos.
+            </p>
+        </div>
+
+        <!-- ABA: FOTOS -->
+        <div id="fotos" class="tab-content">
+            <h2>Nossos Momentos</h2>
+            <div class="grid-galeria">
+                <!-- INFRA: Adicione mais fotos copiando este bloco -->
+                <div class="cartao">
+                    <img src="assets/foto1.jpg" alt="Nossa Foto 1" onerror="this.src='https://via.placeholder.com/600x800?text=Sua+Foto+Aqui'">
+                    <div class="cartao-info">
+                        <h3>O começo</h3>
+                        <p>Descrição elegante da foto vai aqui.</p>
+                    </div>
+                </div>
+                <div class="cartao">
+                    <img src="assets/foto2.jpg" alt="Nossa Foto 2" onerror="this.src='https://via.placeholder.com/600x800?text=Sua+Foto+Aqui'">
+                    <div class="cartao-info">
+                        <h3>Dia especial</h3>
+                        <p>Descrição elegante da foto vai aqui.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ABA: GALERIA DE ARTE -->
+        <div id="arte" class="tab-content">
+            <h2>Nossas Criações</h2>
+            <div class="grid-galeria">
+                
+                <div class="cartao">
+                    <!-- Troque a tag img por <video controls> quando adicionar o vídeo -->
+                    <img src="assets/anime.jpg" alt="Abertura de Anime" onerror="this.src='https://via.placeholder.com/600x800?text=Abertura+Anime'">
+                    <div class="cartao-info">
+                        <h3>Abertura de Anime</h3>
+                        <p>A música e o vídeo protagonizado por nós e pelo Scooby.</p>
+                    </div>
+                </div>
+                
+                <div class="cartao">
+                    <img src="assets/ceramica-pronta.jpg" alt="Cerâmica" onerror="this.src='https://via.placeholder.com/600x800?text=Pe%C3%A7as+de+Cer%C3%A2mica'">
+                    <div class="cartao-info">
+                        <h3>Obras em Argila</h3>
+                        <p>As peças que moldamos para enfeitar nossos apartamentos.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ABA: MAPA INTERATIVO -->
+        <div id="mapa" class="tab-content">
+            <h2>Por Onde Andamos</h2>
+            <p style="margin-bottom: 40px;">Selecione os marcadores para relembrar nossos roteiros.</p>
+            <div id="mapa-brasil"></div>
+        </div>
+
+        <!-- ABA: OFICINA DE CERÂMICA -->
+        <div id="ceramica" class="tab-content">
+            <h2>Oficina de Cerâmica Fria</h2>
+            
+            <div class="passo-ceramica">
+                <h3>I. A Preparação</h3>
+                <p>Forre a superfície e mantenha água por perto. Amasse a argila fria com as mãos levemente umedecidas por cerca de 3 minutos para eliminar bolhas de ar e garantir a resistência da peça.</p>
+            </div>
+
+            <div class="passo-ceramica">
+                <h3>II. A Modelagem</h3>
+                <p>Podemos esculpir pratinhos minimalistas para as chaves ou duas metades complementares que se conectam. Se a massa ressecar durante o processo, basta umedecer a ponta dos dedos.</p>
+            </div>
+
+            <div class="passo-ceramica">
+                <h3>III. O Acabamento</h3>
+                <p>O tempo de cura é de 24 a 48 horas em local arejado, protegido do sol. Após secar, lixaremos as bordas suavemente e aplicaremos a pintura acrílica, finalizando com verniz para selar a arte.</p>
+                <br>
+                <div align="center">
+                    <p style="color: #A39171; border: 1px solid rgba(163, 145, 113, 0.4); padding: 40px; font-family: 'Lato', sans-serif;">
+                        [Cole o IFRAME do YouTube do tutorial de cerâmica aqui]
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let mapInitialized = false;
+        let map;
+
+        function openTab(tabId, isMap = false) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+
+            if (isMap) {
+                setTimeout(initMap, 100); 
+            }
+        }
+
+        function initMap() {
+            if (mapInitialized) {
+                map.invalidateSize(); 
+                return;
+            }
+            
+            // Centralizado para mostrar tanto o Brasil quanto a América do Sul
+            map = L.map('mapa-brasil').setView([-18.0, -55.0], 4);
+
+            // Estilo de mapa mais clean (CartoDB Positron)
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '© OpenStreetMap contributors © CARTO'
+            }).addTo(map);
+
+            // Adicionando memórias de viagens (Nacionais e Internacionais)
+            const locais = [
+                { lat: -23.2198, lng: -44.7130, titulo: "Paraty, RJ", desc: "Aquele passeio inesquecível de caiaque e os plânctons bioluminescentes." },
+                { lat: -22.9068, lng: -43.1729, titulo: "Rio de Janeiro, RJ", desc: "Nossos dias explorando a cidade maravilhosa." },
+                { lat: -22.5050, lng: -43.1786, titulo: "Petrópolis, RJ", desc: "Aproveitando o clima gostoso e a história na serra." },
+                { lat: -23.0754, lng: -44.9622, titulo: "Cunha, SP", desc: "Um refúgio de paz e descanso no sítio." },
+                { lat: -13.5226, lng: -71.9673, titulo: "Cusco, Peru", desc: "Nossos 19 dias de férias intensas explorando a história e cultura inca." },
+                { lat: 48.1351, lng: 11.5820, titulo: "Munique, Alemanha", desc: "Cenários de inverno e momentos únicos na Europa." }
+            ];
+
+            // Marcador personalizado para combinar com o design
+            const chicIcon = L.divIcon({
+                className: 'custom-pin',
+                html: '<div style="background-color:#A39171; width:12px; height:12px; border-radius:50%; border:3px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.3);"></div>',
+                iconSize: [18, 18],
+                iconAnchor: [9, 9]
+            });
+
+            locais.forEach(local => {
+                L.marker([local.lat, local.lng], {icon: chicIcon}).addTo(map)
+                 .bindPopup(`<div style="text-align:center; font-family:'Lato', sans-serif;"><b style="font-family:'Playfair Display', serif; font-size:1.2rem; color:#2C2C2C;">${local.titulo}</b><br><span style="color:#5A5A5A; margin-top:5px; display:inline-block;">${local.desc}</span></div>`);
+            });
+
+            mapInitialized = true;
+        }
+    </script>
+</body>
+</html>

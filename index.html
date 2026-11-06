@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosso 1º Ano - Oficina de Cerâmica</title>
+    <style>
+        :root {
+            --terracota: #C27A62;
+            --barro: #8C5C4A;
+            --fundo: #F9F6F0;
+            --texto: #4A4A4A;
+        }
+        body {
+            background-color: var(--fundo);
+            color: var(--texto);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 2vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .container {
+            max-width: 1200px;
+            width: 90%;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-top: 20px;
+            display: none; /* Escondido por padrão, controlado pelo JS */
+        }
+        .active {
+            display: block;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        h1 {
+            color: var(--barro);
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: var(--terracota);
+            font-size: 2.5rem;
+        }
+        p, li {
+            font-size: 1.8rem;
+            line-height: 1.6;
+            text-align: left;
+        }
+        .ideia-card {
+            background: var(--fundo);
+            padding: 20px;
+            border-left: 8px solid var(--terracota);
+            margin-bottom: 20px;
+            border-radius: 0 10px 10px 0;
+        }
+        .nav-buttons {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        button {
+            background-color: var(--terracota);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.8rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+        button:hover {
+            background-color: var(--barro);
+            transform: scale(1.05);
+        }
+        .youtube-placeholder {
+            background: #eee;
+            padding: 40px;
+            border: 2px dashed #ccc;
+            font-size: 1.5rem;
+            color: #888;
+            margin: 20px 0;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Tela 1: Início -->
+    <div id="step1" class="container active">
+        <h1>Feliz 1 Ano! ❤️</h1>
+        <p style="text-align: center;">Bem-vinda à nossa Oficina de Cerâmica particular.</p>
+        <p style="text-align: center;">Hoje vamos criar algo para durar e conectar nossas casas.</p>
+        <div class="nav-buttons">
+            <button onclick="nextStep(2)">Começar o Roteiro ➔</button>
+        </div>
+    </div>
+
+    <!-- Tela 2: Preparação -->
+    <div id="step2" class="container">
+        <h2>1. Preparando a Massa</h2>
+        <p>A cerâmica fria seca com o ar, então precisamos trabalhar com as mãos úmidas e amassar bem antes de modelar.</p>
+        <ul>
+            <li>Forre a mesa (para não sujar os móveis).</li>
+            <li>Deixe um potinho com água do lado.</li>
+            <li>Sove a massa por uns 3 minutos para tirar as bolhas de ar e evitar rachaduras.</li>
+        </ul>
+        <div class="youtube-placeholder">
+            [Espaço para o seu vídeo do YouTube: Como sovar a massa]
+            <br>
+            <!-- Substitua esta div pelo código "Incorporar" (iframe) do vídeo do YouTube -->
+        </div>
+        <div class="nav-buttons">
+            <button onclick="nextStep(1)">⬅ Voltar</button>
+            <button onclick="nextStep(3)">Ver Ideias de Peças ➔</button>
+        </div>
+    </div>
+
+    <!-- Tela 3: Ideias -->
+    <div id="step3" class="container">
+        <h2>2. O que vamos criar?</h2>
+        
+        <div class="ideia-card">
+            <h3>Ideia A: Pratinhos para as Chaves</h3>
+            <p>Um para o seu apartamento e outro para o meu. Podemos fazer o formato das nossas mãos ou carimbar texturas que gostamos.</p>
+        </div>
+
+        <div class="ideia-card">
+            <h3>Ideia B: Escultura Conectada (Metades)</h3>
+            <p>Duas peças que só fazem sentido quando estão juntas (ex: um sol e uma lua, ou duas metades abstratas que se encaixam perfeitamente). Quando um visitar o apê do outro, leva a sua metade.</p>
+        </div>
+        
+        <div class="nav-buttons">
+            <button onclick="nextStep(2)">⬅ Voltar</button>
+            <button onclick="nextStep(4)">Passo a Passo e Pintura ➔</button>
+        </div>
+    </div>
+
+    <!-- Tela 4: Acabamento -->
+    <div id="step4" class="container">
+        <h2>3. Secagem e Pintura</h2>
+        <p><strong>Secagem:</strong> A peça precisa secar na sombra por 24h a 48h. Não coloque no sol para não trincar!</p>
+        <p><strong>Pintura:</strong> Depois de totalmente seca e branca, vamos usar tinta acrílica.</p>
+        <ul>
+            <li>Lixar levemente as bordas se ficarem ásperas.</li>
+            <li>Fazer uma base branca antes da cor final.</li>
+            <li>Finalizar com verniz (fosco ou brilhante) para impermeabilizar.</li>
+        </ul>
+        <div class="nav-buttons">
+            <button onclick="nextStep(3)">⬅ Voltar</button>
+            <button onclick="nextStep(1)">Voltar ao Início 🏠</button>
+        </div>
+    </div>
+
+    <script>
+        function nextStep(stepNumber) {
+            // Esconde todas as telas
+            document.querySelectorAll('.container').forEach(el => {
+                el.classList.remove('active');
+            });
+            // Mostra a tela desejada
+            document.getElementById('step' + stepNumber).classList.add('active');
+            // Sobe para o topo suavemente
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

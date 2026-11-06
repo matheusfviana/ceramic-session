@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -5,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1 Ano de Baby e Baby</title>
     
-    <!-- Fontes Elegantes do Google -->
+    <!-- Fontes Google: Editorial e Minimalista -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
     
     <!-- Biblioteca do Mapa Interativo (Leaflet) -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -16,18 +17,16 @@
 
     <style>
         :root {
-            --bg-color: #FAF9F6; /* Off-white chic */
-            --text-main: #2C2C2C; /* Grafite escuro */
-            --text-light: #5A5A5A;
-            --accent: #A39171; /* Dourado/Taupe suave */
-            --card-bg: #FFFFFF;
+            --bg-color: #FDFCFB; /* Quase branco, tom de papel fosco */
+            --text-main: #111111; /* Preto profundo */
+            --text-light: #555555;
+            --border-color: #E0E0E0;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            font-family: 'Lato', sans-serif;
-            font-weight: 300;
+            font-family: 'Cormorant Garamond', serif;
             margin: 0;
             padding: 0;
             display: flex;
@@ -35,84 +34,79 @@
             height: 100vh;
         }
 
-        /* Tipografia Elegante */
+        /* Tipografia Editorial */
         h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 400;
-            color: var(--text-main);
+            font-weight: 300;
             text-align: center;
+            margin: 0;
         }
 
         h1 { 
-            font-size: 4.5rem; 
+            font-size: 5.5rem; 
             font-style: italic;
-            margin-bottom: 5px;
             letter-spacing: 2px;
+            margin-bottom: 20px;
         }
         
         h2 { 
-            font-size: 3rem; 
-            margin-bottom: 40px; 
-            position: relative;
-        }
-
-        h2::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 1px;
-            background-color: var(--accent);
-            margin: 20px auto 0;
+            font-size: 3.5rem; 
+            letter-spacing: 1px;
+            margin-bottom: 60px;
+            text-transform: uppercase;
         }
 
         p { 
-            font-size: 1.6rem; 
-            line-height: 1.8; 
+            font-size: 1.8rem; 
+            line-height: 1.6; 
             text-align: center; 
             color: var(--text-light);
+            margin: 0 auto;
+            max-width: 800px;
         }
 
-        /* Menu Superior - Estilo Minimalista para TV */
+        /* Menu Superior - Estilo Minimalista Reto */
         nav {
-            padding: 30px;
+            padding: 40px 20px;
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
             flex-wrap: wrap;
-            background: transparent;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .tab-btn {
             background-color: transparent;
             color: var(--text-main);
-            border: 1px solid rgba(44, 44, 44, 0.2);
-            padding: 15px 35px;
-            font-size: 1.3rem;
-            font-family: 'Lato', sans-serif;
+            border: 1px solid transparent;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-family: 'Montserrat', sans-serif;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            border-radius: 50px;
+            letter-spacing: 3px;
             cursor: pointer;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
         }
 
-        .tab-btn.active, .tab-btn:hover {
+        .tab-btn:hover {
+            border-color: var(--text-main);
+        }
+
+        .tab-btn.active {
             background-color: var(--text-main);
             color: var(--bg-color);
             border-color: var(--text-main);
-            transform: translateY(-2px);
         }
 
         /* Área de Conteúdo */
         .content-area {
             flex: 1;
-            padding: 20px 60px 60px 60px;
+            padding: 60px 40px;
             overflow-y: auto;
         }
 
         .tab-content {
             display: none;
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             animation: fadeIn 0.8s ease-out;
         }
@@ -121,179 +115,176 @@
             display: block;
         }
 
-        /* Grid de Fotos e Galeria (Estilo Fine Art) */
+        /* Grid de Fotos e Galeria (Sem sombras, sem bordas redondas) */
         .grid-galeria {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 60px;
+            margin-top: 40px;
         }
 
         .cartao {
-            background: var(--card-bg);
-            padding: 15px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.04);
+            background: transparent;
             text-align: center;
-            transition: transform 0.5s ease;
-        }
-
-        .cartao:hover {
-            transform: translateY(-5px);
         }
 
         .cartao img, .cartao video {
             width: 100%;
-            height: 350px;
+            aspect-ratio: 3 / 4; /* Formato retrato chique */
             object-fit: cover;
-            filter: contrast(0.95) saturate(0.9); /* Filtro sutil para elegância */
+            filter: grayscale(15%);
+            transition: filter 0.5s ease;
+        }
+
+        .cartao:hover img {
+            filter: grayscale(0%);
         }
 
         .cartao-info {
-            padding: 25px 10px 10px 10px;
+            padding: 20px 0;
         }
         
         .cartao-info h3 { 
-            font-size: 1.8rem; 
-            margin: 0 0 10px 0; 
+            font-size: 2.2rem; 
+            margin-bottom: 10px; 
             font-style: italic;
         }
         
         .cartao-info p { 
-            font-size: 1.1rem; 
-            margin: 0; 
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem; 
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-main);
         }
 
-        /* Mapa Chic */
+        /* Mapa Minimalista */
         #mapa-brasil {
             width: 100%;
-            height: 55vh;
-            border: 1px solid rgba(0,0,0,0.1);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
-            filter: grayscale(20%) contrast(0.9); /* Deixa o mapa mais neutro */
+            height: 60vh;
+            border: 1px solid var(--text-main);
+            filter: grayscale(100%) opacity(0.8);
         }
 
-        /* Tutorial Cerâmica */
+        /* Tutorial Cerâmica (Linhas Divisórias Finas) */
         .passo-ceramica {
-            background: var(--card-bg);
-            padding: 40px;
-            border-top: 3px solid var(--accent);
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            padding: 50px 0;
+            border-bottom: 1px solid var(--border-color);
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .passo-ceramica:first-of-type {
+            border-top: 1px solid var(--border-color);
         }
 
         .passo-ceramica h3 {
-            text-align: left;
-            font-size: 2rem;
-            margin-top: 0;
-            color: var(--accent);
-        }
-        
-        .passo-ceramica p {
-            text-align: left;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            color: var(--text-main);
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navegação Minimalista -->
     <nav>
         <button class="tab-btn active" onclick="openTab('inicio')">Início</button>
         <button class="tab-btn" onclick="openTab('fotos')">Fotografia</button>
         <button class="tab-btn" onclick="openTab('arte')">Galeria de Arte</button>
-        <button class="tab-btn" onclick="openTab('mapa', true)">Nosso Mapa</button>
+        <button class="tab-btn" onclick="openTab('mapa', true)">Diário de Bordo</button>
         <button class="tab-btn" onclick="openTab('ceramica')">Oficina</button>
     </nav>
 
     <div class="content-area">
         
-        <!-- ABA: INÍCIO -->
-        <div id="inicio" class="tab-content active" style="margin-top: 8vh;">
+        <!-- INÍCIO -->
+        <div id="inicio" class="tab-content active" style="margin-top: 10vh;">
             <h1>1 ano de baby e baby</h1>
-            <p style="margin-top: 30px; max-width: 700px; margin-left: auto; margin-right: auto;">
+            <p style="margin-top: 40px;">
                 Um espaço reservado para celebrar a nossa história, as nossas viagens e a arte de construirmos algo juntos.
             </p>
         </div>
 
-        <!-- ABA: FOTOS -->
+        <!-- FOTOGRAFIA -->
         <div id="fotos" class="tab-content">
             <h2>Nossos Momentos</h2>
             <div class="grid-galeria">
-                <!-- INFRA: Adicione mais fotos copiando este bloco -->
                 <div class="cartao">
-                    <img src="assets/foto1.jpg" alt="Nossa Foto 1" onerror="this.src='https://via.placeholder.com/600x800?text=Sua+Foto+Aqui'">
+                    <img src="assets/foto1.jpg" alt="Foto 1" onerror="this.src='https://via.placeholder.com/600x800/E0E0E0/111111?text=FOTO'">
                     <div class="cartao-info">
                         <h3>O começo</h3>
-                        <p>Descrição elegante da foto vai aqui.</p>
+                        <p>São Paulo, SP</p>
                     </div>
                 </div>
                 <div class="cartao">
-                    <img src="assets/foto2.jpg" alt="Nossa Foto 2" onerror="this.src='https://via.placeholder.com/600x800?text=Sua+Foto+Aqui'">
+                    <img src="assets/foto2.jpg" alt="Foto 2" onerror="this.src='https://via.placeholder.com/600x800/E0E0E0/111111?text=FOTO'">
                     <div class="cartao-info">
                         <h3>Dia especial</h3>
-                        <p>Descrição elegante da foto vai aqui.</p>
+                        <p>Nossa História</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ABA: GALERIA DE ARTE -->
+        <!-- GALERIA DE ARTE -->
         <div id="arte" class="tab-content">
-            <h2>Nossas Criações</h2>
+            <h2>Acervo e Criações</h2>
             <div class="grid-galeria">
-                
                 <div class="cartao">
-                    <!-- Troque a tag img por <video controls> quando adicionar o vídeo -->
-                    <img src="assets/anime.jpg" alt="Abertura de Anime" onerror="this.src='https://via.placeholder.com/600x800?text=Abertura+Anime'">
+                    <img src="assets/anime.jpg" alt="Abertura de Anime" onerror="this.src='https://via.placeholder.com/600x800/E0E0E0/111111?text=VÍDEO'">
                     <div class="cartao-info">
-                        <h3>Abertura de Anime</h3>
-                        <p>A música e o vídeo protagonizado por nós e pelo Scooby.</p>
+                        <h3>Abertura Original</h3>
+                        <p>Nós e o Scooby</p>
                     </div>
                 </div>
                 
                 <div class="cartao">
-                    <img src="assets/ceramica-pronta.jpg" alt="Cerâmica" onerror="this.src='https://via.placeholder.com/600x800?text=Pe%C3%A7as+de+Cer%C3%A2mica'">
+                    <img src="assets/ceramica.jpg" alt="Cerâmica" onerror="this.src='https://via.placeholder.com/600x800/E0E0E0/111111?text=CERÂMICA'">
                     <div class="cartao-info">
                         <h3>Obras em Argila</h3>
-                        <p>As peças que moldamos para enfeitar nossos apartamentos.</p>
+                        <p>Para nossos apartamentos</p>
                     </div>
                 </div>
-
             </div>
         </div>
 
-        <!-- ABA: MAPA INTERATIVO -->
+        <!-- MAPA -->
         <div id="mapa" class="tab-content">
-            <h2>Por Onde Andamos</h2>
-            <p style="margin-bottom: 40px;">Selecione os marcadores para relembrar nossos roteiros.</p>
+            <h2>Onde Andamos</h2>
+            <p style="margin-bottom: 60px;">Selecione os pontos para acessar nossos registros geográficos.</p>
             <div id="mapa-brasil"></div>
         </div>
 
-        <!-- ABA: OFICINA DE CERÂMICA -->
+        <!-- OFICINA -->
         <div id="ceramica" class="tab-content">
             <h2>Oficina de Cerâmica Fria</h2>
             
             <div class="passo-ceramica">
-                <h3>I. A Preparação</h3>
-                <p>Forre a superfície e mantenha água por perto. Amasse a argila fria com as mãos levemente umedecidas por cerca de 3 minutos para eliminar bolhas de ar e garantir a resistência da peça.</p>
+                <h3>I. Preparação da Matéria</h3>
+                <p>Mantenha a superfície limpa e um recipiente com água próximo. Amasse a argila com as mãos levemente umedecidas por 3 minutos para extrair bolhas de ar e prevenir fissuras futuras na peça.</p>
             </div>
 
             <div class="passo-ceramica">
-                <h3>II. A Modelagem</h3>
-                <p>Podemos esculpir pratinhos minimalistas para as chaves ou duas metades complementares que se conectam. Se a massa ressecar durante o processo, basta umedecer a ponta dos dedos.</p>
+                <h3>II. Escultura e Forma</h3>
+                <p>Modele peças utilitárias ou decorativas. Uma sugestão é criarmos pequenos pratos para chaves que marquem a identidade dos nossos apartamentos. Caso a argila resseque, umedeça os dedos e alise as superfícies.</p>
             </div>
 
             <div class="passo-ceramica">
-                <h3>III. O Acabamento</h3>
-                <p>O tempo de cura é de 24 a 48 horas em local arejado, protegido do sol. Após secar, lixaremos as bordas suavemente e aplicaremos a pintura acrílica, finalizando com verniz para selar a arte.</p>
-                <br>
-                <div align="center">
-                    <p style="color: #A39171; border: 1px solid rgba(163, 145, 113, 0.4); padding: 40px; font-family: 'Lato', sans-serif;">
-                        [Cole o IFRAME do YouTube do tutorial de cerâmica aqui]
+                <h3>III. Cura e Acabamento</h3>
+                <p>O repouso deve durar entre 24 a 48 horas em ambiente ventilado, sem luz solar direta. Após a secagem completa, faremos o lixamento, a pintura acrílica e a selagem final com verniz.</p>
+                
+                <div style="margin-top: 50px;">
+                    <p style="font-family: 'Montserrat', sans-serif; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; border: 1px solid #111; padding: 40px;">
+                        [SUBSTITUA ESTA CAIXA PELO IFRAME DO YOUTUBE]
                     </p>
                 </div>
             </div>
@@ -323,35 +314,32 @@
                 return;
             }
             
-            // Centralizado para mostrar tanto o Brasil quanto a América do Sul
-            map = L.map('mapa-brasil').setView([-18.0, -55.0], 4);
+            map = L.map('mapa-brasil').setView([10.0, -35.0], 3);
 
-            // Estilo de mapa mais clean (CartoDB Positron)
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-                attribution: '© OpenStreetMap contributors © CARTO'
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+                attribution: '© OpenStreetMap © CARTO'
             }).addTo(map);
 
-            // Adicionando memórias de viagens (Nacionais e Internacionais)
             const locais = [
-                { lat: -23.2198, lng: -44.7130, titulo: "Paraty, RJ", desc: "Aquele passeio inesquecível de caiaque e os plânctons bioluminescentes." },
-                { lat: -22.9068, lng: -43.1729, titulo: "Rio de Janeiro, RJ", desc: "Nossos dias explorando a cidade maravilhosa." },
-                { lat: -22.5050, lng: -43.1786, titulo: "Petrópolis, RJ", desc: "Aproveitando o clima gostoso e a história na serra." },
-                { lat: -23.0754, lng: -44.9622, titulo: "Cunha, SP", desc: "Um refúgio de paz e descanso no sítio." },
-                { lat: -13.5226, lng: -71.9673, titulo: "Cusco, Peru", desc: "Nossos 19 dias de férias intensas explorando a história e cultura inca." },
-                { lat: 48.1351, lng: 11.5820, titulo: "Munique, Alemanha", desc: "Cenários de inverno e momentos únicos na Europa." }
+                { lat: -23.2198, lng: -44.7130, titulo: "Paraty, RJ", desc: "Caiaque e plânctons bioluminescentes." },
+                { lat: -22.9068, lng: -43.1729, titulo: "Rio de Janeiro, RJ", desc: "Nossos dias na cidade maravilhosa." },
+                { lat: -22.5050, lng: -43.1786, titulo: "Petrópolis, RJ", desc: "Clima gostoso na serra." },
+                { lat: -23.0754, lng: -44.9622, titulo: "Cunha, SP", desc: "Descanso e tranquilidade no sítio." },
+                { lat: -12.0464, lng: -77.0428, titulo: "Lima & Cusco, Peru", desc: "Nossa expedição de 19 dias pelo país." },
+                { lat: 48.1351, lng: 11.5820, titulo: "Munique, Alemanha", desc: "O frio e o charme europeu." },
+                { lat: 42.8805, lng: -8.5456, titulo: "Santiago de Compostela, Espanha", desc: "O Caminho que percorremos a pé." }
             ];
 
-            // Marcador personalizado para combinar com o design
-            const chicIcon = L.divIcon({
+            const dotIcon = L.divIcon({
                 className: 'custom-pin',
-                html: '<div style="background-color:#A39171; width:12px; height:12px; border-radius:50%; border:3px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.3);"></div>',
-                iconSize: [18, 18],
-                iconAnchor: [9, 9]
+                html: '<div style="background-color:#111; width:8px; height:8px; border-radius:50%;"></div>',
+                iconSize: [8, 8],
+                iconAnchor: [4, 4]
             });
 
             locais.forEach(local => {
-                L.marker([local.lat, local.lng], {icon: chicIcon}).addTo(map)
-                 .bindPopup(`<div style="text-align:center; font-family:'Lato', sans-serif;"><b style="font-family:'Playfair Display', serif; font-size:1.2rem; color:#2C2C2C;">${local.titulo}</b><br><span style="color:#5A5A5A; margin-top:5px; display:inline-block;">${local.desc}</span></div>`);
+                L.marker([local.lat, local.lng], {icon: dotIcon}).addTo(map)
+                 .bindPopup(`<div style="text-align:center; font-family:'Montserrat', sans-serif;"><b style="font-size:0.9rem; text-transform:uppercase; letter-spacing:1px; color:#111;">${local.titulo}</b><br><span style="color:#555; margin-top:5px; display:inline-block; font-family:'Cormorant Garamond', serif; font-size:1.2rem;">${local.desc}</span></div>`);
             });
 
             mapInitialized = true;

@@ -205,6 +205,12 @@
             height: 100%;
             animation: pulse-heart 1.5s infinite ease-in-out;
         }
+        /* Coração estático (eventos futuros) */
+        .heart-static {
+            width: 100%;
+            height: 100%;
+            opacity: 0.85;
+        }
 
         /* Estilização do Cartão de Memória (Tooltip) ao passar o rato */
         .leaflet-tooltip {
@@ -579,42 +585,77 @@
                 attribution: '© OpenStreetMap'
             }).addTo(map);
 
-            // Adicionado o campo "foto" em cada memória
+            // Lista de eventos: status "concluido" (com foto) ou "futuro" (sem foto)
             const locais = [
-                { lat: -23.2198, lng: -44.7130, titulo: "Paraty, RJ", desc: "Caiaque e plânctons bioluminescentes.", foto: "assets/foto1.jpg" },
-                { lat: -22.9068, lng: -43.1729, titulo: "Rio de Janeiro, RJ", desc: "Nossos dias na cidade maravilhosa.", foto: "assets/foto2.jpg" },
-                { lat: -22.5050, lng: -43.1786, titulo: "Petrópolis, RJ", desc: "Clima gostoso na serra.", foto: "assets/foto1.jpg" },
-                { lat: -23.0754, lng: -44.9622, titulo: "Cunha, SP", desc: "Descanso e tranquilidade no sítio.", foto: "assets/foto2.jpg" },
-                { lat: -12.0464, lng: -77.0428, titulo: "Lima & Cusco, Peru", desc: "Nossa expedição de 19 dias pelo país.", foto: "assets/foto1.jpg" },
-                { lat: 48.1351, lng: 11.5820, titulo: "Munique, Alemanha", desc: "O frio e o charme europeu.", foto: "assets/foto2.jpg" },
-                { lat: 42.8805, lng: -8.5456, titulo: "Santiago de Compostela, Espanha", desc: "O Caminho que percorremos a pé.", foto: "assets/foto1.jpg" }
+                { lat: -23.682,   lng: -46.536,   titulo: "Banho de chuva",                   desc: "16/01/26 | Rua Acre, 85 - Santo André",                          status: "concluido", foto: "assets/0-chuva.jpg" },
+                { lat: -23.563,   lng: -46.666,   titulo: "1º Date no Botanikafé",            desc: "26/07/26 | Alameda Lorena, 1765 - Jardins",                     status: "concluido", foto: "assets/1-botanikafe.jpg" },
+                { lat: -23.565,   lng: -46.697,   titulo: "Aula de Dança",                    desc: "Data Proposta: 12/12/26 | Westside Full",                       status: "futuro",    foto: null },
+                { lat: -23.2198,  lng: -44.7130,  titulo: "Viagem para a praia",              desc: "05/06/26 | Paraty, RJ",                                         status: "concluido", foto: "assets/3-praia-paraty.jpg" },
+                { lat: -23.606,   lng: -46.626,   titulo: "Noite de pintura de telas",        desc: "03/06/26 | Rua Lomas Valentinas 365, SP",                       status: "concluido", foto: "assets/4-pintura.jpg" },
+                { lat: -23.437,   lng: -46.625,   titulo: "Trilha nível INICIANTE",           desc: "Data Proposta: 19/12/26 | Mirante da Pedra Grande, Cantareira", status: "futuro",    foto: null },
+                { lat: -23.238,   lng: -44.646,   titulo: "Ver o céu estrelado",              desc: "05/06/26 | Paraty Mirim, RJ",                                   status: "concluido", foto: "assets/5-ceu-estrelado.jpg" },
+                { lat: -23.543,   lng: -46.642,   titulo: "Free walking tour e date de cores", desc: "10/03/26 | Praça da República, SP",                            status: "concluido", foto: "assets/6-walking-tour.jpg" },
+                { lat: -23.097,   lng: -47.013,   titulo: "Aventura Hopi Hari / Asa Delta",   desc: "28/03/26 | Hopi Hari, SP",                                      status: "concluido", foto: "assets/7-aventura.jpg" },
+                { lat: -23.584,   lng: -46.642,   titulo: "Comer num restaurante Michelin",   desc: "Data Proposta: 11/11/26 | AE! Cozinha - Vila Mariana",          status: "futuro",    foto: null },
+                { lat: -23.655,   lng: -46.528,   titulo: "Descobrir um lugar novo",          desc: "02/07/26 | Mariah'S Pizzas, Santo André",                       status: "concluido", foto: "assets/9-mariahs.jpg" },
+                { lat: -23.555,   lng: -46.634,   titulo: "Show do Don L",                    desc: "29/05/26 | Cine Joia",                                          status: "concluido", foto: "assets/10-don-l.jpg" },
+                { lat: -23.527,   lng: -46.678,   titulo: "Show da Liniker",                  desc: "11/07/26 | Nu Arena, SP",                                       status: "concluido", foto: "assets/10-liniker.jpg" },
+                { lat: -23.597,   lng: -46.602,   titulo: "Jantar em casa, menu completo",    desc: "Data Proposta: 06/12/26 | Rua Dr. Elisio de Castro, 429",       status: "futuro",    foto: null }
             ];
 
-            // Criação do Ícone de Coração Grande em SVG puro (mantém a qualidade)
-            const heartIcon = L.divIcon({
+            // Path SVG do coração (reutilizado pelos dois ícones)
+            const heartPath = "M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2 c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z";
+
+            // Coração VERMELHO pulsante — eventos concluídos
+            const heartIconConcluido = L.divIcon({
                 className: 'custom-heart',
-                html: `<svg viewBox="0 0 32 29.6" class="heart-pulse"><path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2 c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" fill="#D90429"/></svg>`,
+                html: `<svg viewBox="0 0 32 29.6" class="heart-pulse"><path d="${heartPath}" fill="#D90429"/></svg>`,
                 iconSize: [35, 35], // Tamanho grande
                 iconAnchor: [17, 17] // Centraliza o ícone
             });
 
-            locais.forEach(local => {
-                // bindTooltip é usado no lugar de bindPopup para ativar ao passar o rato (hover)
-                L.marker([local.lat, local.lng], {icon: heartIcon}).addTo(map)
-                 .bindTooltip(
-                     `<img src="${local.foto}" class="tooltip-imagem" onerror="this.src='https://placehold.co/300x200/E0E0E0/111111?text=FOTO'">
-                      <div class="tooltip-texto">
-                          <b style="font-family:'Montserrat', sans-serif; font-size:0.9rem; text-transform:uppercase; letter-spacing:1px; color:#111;">${local.titulo}</b>
-                          <br>
-                          <span style="color:#555; margin-top:8px; display:inline-block; font-size:1.2rem;">${local.desc}</span>
-                      </div>`,
-                     { 
-                         direction: 'top', 
-                         offset: [0, -15], 
-                         opacity: 1 // Mantém o cartão sempre opaco ao aparecer
-                     }
-                 );
+            // Coração CINZA estático — eventos futuros
+            const heartIconFuturo = L.divIcon({
+                className: 'custom-heart',
+                html: `<svg viewBox="0 0 32 29.6" class="heart-static"><path d="${heartPath}" fill="#9E9E9E"/></svg>`,
+                iconSize: [35, 35],
+                iconAnchor: [17, 17]
             });
+
+            const tooltipOptions = {
+                direction: 'top',
+                offset: [0, -15],
+                opacity: 1 // Mantém o cartão sempre opaco ao aparecer
+            };
+
+            const textoTooltip = (local) =>
+                `<div class="tooltip-texto">
+                     <b style="font-family:'Montserrat', sans-serif; font-size:0.9rem; text-transform:uppercase; letter-spacing:1px; color:#111;">${local.titulo}</b>
+                     <br>
+                     <span style="color:#555; margin-top:8px; display:inline-block; font-size:1.2rem;">${local.desc}</span>
+                 </div>`;
+
+            locais.forEach(local => {
+                let icon;
+                let conteudo;
+
+                if (local.status === "concluido") {
+                    // Concluído: coração vermelho pulsante + foto (com placeholder se não existir)
+                    icon = heartIconConcluido;
+                    conteudo = `<img src="${local.foto}" class="tooltip-imagem" onerror="this.onerror=null; this.src='https://placehold.co/300x200/E0E0E0/111111?text=FOTO'">` + textoTooltip(local);
+                } else {
+                    // Futuro: coração cinza estático, sem bloco de imagem
+                    icon = heartIconFuturo;
+                    conteudo = textoTooltip(local);
+                }
+
+                // bindTooltip é usado no lugar de bindPopup para ativar ao passar o rato (hover)
+                L.marker([local.lat, local.lng], { icon }).addTo(map)
+                 .bindTooltip(conteudo, tooltipOptions);
+            });
+
+            // Enquadra o mapa para mostrar todos os corações
+            map.fitBounds(locais.map(l => [l.lat, l.lng]), { padding: [40, 40] });
 
             mapInitialized = true;
         }

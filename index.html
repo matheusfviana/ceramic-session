@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1 Ano de Baby e Baby</title>
     
-    <!-- Fontes Google: Editorial e Minimalista -->
+    <!-- Fontes Google: Expressiva e Vibrante + Alta Legibilidade -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@200;300;400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Biblioteca do Mapa Interativo (Leaflet) -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -17,16 +17,29 @@
 
     <style>
         :root {
-            --bg-color: #FDFCFB; /* Quase branco, tom de papel fosco */
-            --text-main: #111111; /* Preto profundo */
-            --text-light: #555555;
-            --border-color: #E0E0E0;
+            --bg-color: #FFF8EE;
+            --text-main: #1E152A;
+            --text-light: #594D6B;
+            --border-color: #1E152A;
+            --coral: #FF4D6D;
+            --sun: #FFD166;
+            --mint: #06D6A0;
+            --sky: #118AB2;
+            --purple: #8338EC;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
             background-color: var(--bg-color);
+            background-image:
+                radial-gradient(circle at 10% 15%, rgba(255, 77, 109, 0.10) 0%, transparent 35%),
+                radial-gradient(circle at 90% 80%, rgba(255, 209, 102, 0.22) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(6, 214, 160, 0.08) 0%, transparent 50%);
             color: var(--text-main);
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
@@ -34,73 +47,80 @@
             height: 100vh;
         }
 
-        /* Tipografia Editorial */
+        /* Tipografia Vibrante e Expressiva */
         h1, h2, h3 {
-            font-weight: 300;
+            font-family: 'Fraunces', serif;
+            font-weight: 800;
             text-align: center;
             margin: 0;
+            color: var(--text-main);
         }
 
         h1 { 
-            font-size: 5.5rem; 
-            font-style: italic;
-            letter-spacing: 2px;
+            font-size: 5rem; 
             margin-bottom: 20px;
         }
         
         h2 { 
-            font-size: 3.5rem; 
-            letter-spacing: 1px;
-            margin-bottom: 60px;
-            text-transform: uppercase;
+            font-size: 3.4rem; 
+            letter-spacing: -0.5px;
+            margin-bottom: 45px;
         }
 
         p { 
-            font-size: 1.8rem; 
-            line-height: 1.6; 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.25rem; 
+            line-height: 1.65; 
             text-align: center; 
             color: var(--text-light);
             margin: 0 auto;
-            max-width: 800px;
+            max-width: 720px;
         }
 
-        /* Menu Superior - Estilo Minimalista Reto */
+        /* Menu Superior - Estilo Pílulas Vibrantes */
         nav {
-            padding: 40px 20px;
+            padding: 24px 20px;
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 12px;
             flex-wrap: wrap;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 2px solid var(--text-main);
+            background: rgba(255, 248, 238, 0.9);
+            backdrop-filter: blur(8px);
         }
 
         .tab-btn {
-            background-color: transparent;
+            background-color: #FFFFFF;
             color: var(--text-main);
-            border: 1px solid transparent;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            font-family: 'Montserrat', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 3px;
+            border: 2px solid var(--text-main);
+            border-radius: 999px;
+            padding: 12px 26px;
+            font-size: 1rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
+            box-shadow: 3px 3px 0px var(--text-main);
+            transition: all 0.2s ease;
         }
 
         .tab-btn:hover {
-            border-color: var(--text-main);
+            transform: translate(-2px, -2px);
+            box-shadow: 5px 5px 0px var(--text-main);
+            background-color: var(--sun);
         }
 
         .tab-btn.active {
-            background-color: var(--text-main);
-            color: var(--bg-color);
+            background-color: var(--coral);
+            color: #FFFFFF;
             border-color: var(--text-main);
+            transform: translate(-2px, -2px);
+            box-shadow: 5px 5px 0px var(--text-main);
         }
 
         /* Área de Conteúdo */
         .content-area {
             flex: 1;
-            padding: 60px 40px;
+            padding: 50px 40px 80px;
             overflow-y: auto;
         }
 
@@ -108,97 +128,98 @@
             display: none;
             max-width: 1200px;
             margin: 0 auto;
-            animation: fadeIn 0.8s ease-out;
+            animation: fadeIn 0.4s ease-out;
         }
 
         .tab-content.active {
             display: block;
         }
 
-        /* Grid de Fotos e Galeria (Sem sombras, sem bordas redondas) */
+        /* Grid de Fotos do Acervo - Estilo Vibrante e Colorido */
         .grid-galeria {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 60px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 30px;
         }
 
         .cartao {
-            background: transparent;
+            background: #FFFFFF;
+            border: 2px solid var(--text-main);
+            border-radius: 20px;
+            overflow: hidden;
             text-align: center;
+            box-shadow: 6px 6px 0px var(--sun);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .cartao:nth-child(4n+2) {
+            box-shadow: 6px 6px 0px var(--coral);
+        }
+        .cartao:nth-child(4n+3) {
+            box-shadow: 6px 6px 0px var(--mint);
+        }
+        .cartao:nth-child(4n) {
+            box-shadow: 6px 6px 0px var(--purple);
+        }
+
+        .cartao:hover {
+            transform: translateY(-6px);
         }
 
         .cartao img, .cartao video {
             width: 100%;
-            aspect-ratio: 3 / 4; /* Formato retrato chique */
+            aspect-ratio: 3 / 4;
             object-fit: cover;
-            filter: grayscale(15%);
-            transition: filter 0.5s ease;
+            border-bottom: 2px solid var(--text-main);
+            display: block;
+            transition: transform 0.4s ease;
         }
 
         .cartao:hover img {
-            filter: grayscale(0%);
+            transform: scale(1.03);
         }
 
         .cartao-info {
-            padding: 20px 0;
+            padding: 18px 16px;
+            background: #FFFFFF;
         }
         
         .cartao-info h3 { 
-            font-size: 2.2rem; 
-            margin-bottom: 10px; 
-            font-style: italic;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.2rem; 
+            font-weight: 700;
+            margin: 0; 
+            color: var(--text-main);
         }
         
         .cartao-info p { 
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1rem; 
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.95rem; 
+            font-weight: 600;
+            color: var(--text-light);
+            margin-top: 6px;
         }
 
-        /*  Minimalista */
         /* Mapa Colorido */
         #mapa-brasil {
             width: 100%;
-            height: 60vh;
-            border: 1px solid var(--text-main);
-            /* O filtro grayscale que deixava preto e branco foi removido */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Adicionei uma sombra leve para dar um destaque na página */
-        }
-
-        /* Tutorial Cerâmica (Linhas Divisórias Finas) */
-        .passo-ceramica {
-            padding: 50px 0;
-            border-bottom: 1px solid var(--border-color);
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .passo-ceramica:first-of-type {
-            border-top: 1px solid var(--border-color);
-        }
-
-        .passo-ceramica h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 20px;
-            color: var(--text-main);
+            height: 62vh;
+            border: 3px solid var(--text-main);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 8px 8px 0px var(--mint);
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         /* Animação do Coração Pulsante */
         @keyframes pulse-heart {
-            0% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(217, 4, 41, 0.4)); }
-            50% { transform: scale(1.3); filter: drop-shadow(0 0 15px rgba(217, 4, 41, 0.9)); }
-            100% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(217, 4, 41, 0.4)); }
+            0% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(255, 77, 109, 0.5)); }
+            50% { transform: scale(1.3); filter: drop-shadow(0 0 15px rgba(255, 77, 109, 0.95)); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(255, 77, 109, 0.5)); }
         }
         .heart-pulse {
             width: 100%;
@@ -212,19 +233,18 @@
             opacity: 0.85;
         }
 
-        /* Estilização do Cartão de Memória (Tooltip) ao passar o rato */
+        /* Estilização do Cartão de Memória (Tooltip) ao passar o mouse */
         .leaflet-tooltip {
-            background: var(--bg-color);
-            border: 1px solid var(--text-main);
-            border-radius: 0;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            background: #FFFFFF;
+            border: 2px solid var(--text-main);
+            border-radius: 16px;
+            box-shadow: 6px 6px 0px var(--coral);
             padding: 0;
             width: 280px;
             white-space: normal;
             overflow: hidden;
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
-        /* Remove a setinha padrão do Leaflet para um visual mais editorial */
         .leaflet-tooltip-top:before, .leaflet-tooltip-bottom:before, 
         .leaflet-tooltip-left:before, .leaflet-tooltip-right:before {
             display: none; 
@@ -233,11 +253,10 @@
             width: 100%;
             height: 180px;
             object-fit: cover;
-            border-bottom: 1px solid var(--text-main);
-            filter: grayscale(15%);
+            border-bottom: 2px solid var(--text-main);
         }
         .tooltip-texto {
-            padding: 20px;
+            padding: 16px;
             text-align: center;
         }
 
@@ -252,7 +271,7 @@
             align-items: center;
             justify-content: space-between;
             height: 74vh;
-            min-height: 480px;
+            min-height: 500px;
             gap: 40px;
             max-width: 1500px;
             margin: 0 auto;
@@ -265,9 +284,9 @@
             overflow: hidden;
             position: relative;
             flex-shrink: 0;
-            /* Máscara suave no topo e base para efeito infinito elegante */
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
-            mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+            padding-right: 8px;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
         }
 
         .esteira-trilha {
@@ -293,23 +312,27 @@
             aspect-ratio: 3 / 4;
             margin-bottom: 24px;
             overflow: hidden;
-            border: 1px solid var(--border-color);
-            background-color: #EFECE6;
+            border: 2px solid var(--text-main);
+            border-radius: 18px;
+            background-color: #FFFFFF;
+            box-shadow: 5px 5px 0px var(--coral);
             flex-shrink: 0;
+        }
+
+        .esteira-item:nth-child(even) {
+            box-shadow: 5px 5px 0px var(--mint);
         }
 
         .esteira-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: grayscale(20%);
-            transition: filter 0.4s ease, transform 0.5s ease;
+            transition: transform 0.5s ease;
             display: block;
         }
 
         .esteira-item:hover img {
-            filter: grayscale(0%);
-            transform: scale(1.04);
+            transform: scale(1.05);
         }
 
         @keyframes rolarEsteiraSubindo {
@@ -330,7 +353,11 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 20px;
+            padding: 45px 35px;
+            background: #FFFFFF;
+            border: 3px solid var(--text-main);
+            border-radius: 32px;
+            box-shadow: 10px 10px 0px var(--sun);
             z-index: 2;
         }
 
@@ -339,45 +366,47 @@
             flex-direction: column;
             align-items: center;
             line-height: 1;
-            margin-bottom: 35px;
+            margin-bottom: 28px;
             user-select: none;
         }
 
         .numero-um {
-            font-size: 12rem;
-            font-weight: 400;
-            font-style: italic;
-            color: #D90429;
+            font-family: 'Fraunces', serif;
+            font-size: 10.5rem;
+            font-weight: 800;
+            color: var(--coral);
+            text-shadow: 5px 5px 0px var(--text-main);
             line-height: 0.85;
             cursor: pointer;
             position: relative;
             display: inline-block;
             padding: 10px 30px;
-            transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), text-shadow 0.35s ease;
+            transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .numero-um:hover {
-            transform: scale(1.08);
-            text-shadow: 0 8px 30px rgba(217, 4, 41, 0.35);
+            transform: scale(1.08) rotate(-2deg);
         }
 
         .palavra-ano {
-            font-size: 6.5rem;
-            font-weight: 300;
-            letter-spacing: 6px;
-            text-transform: lowercase;
-            font-style: italic;
-            margin-top: 5px;
+            font-family: 'Fraunces', serif;
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-top: 6px;
             color: var(--text-main);
         }
 
         .frase-babys {
-            font-size: 4rem;
-            font-weight: 300;
-            font-style: italic;
-            letter-spacing: 2px;
-            margin-top: 12px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 700;
+            background: var(--mint);
             color: var(--text-main);
+            border: 2px solid var(--text-main);
+            box-shadow: 4px 4px 0px var(--text-main);
+            padding: 8px 26px;
+            border-radius: 999px;
+            margin-top: 16px;
         }
 
         /* Canvas de Fogos de Artifício */
@@ -391,46 +420,64 @@
             z-index: 9999;
         }
 
-        /* Subtítulo de seção */
+        /* Subtítulo de seção em formato de badge vibrante */
         .subtitulo-secao {
-            display: block;
-            text-align: center;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1rem;
-            letter-spacing: 5px;
+            display: table;
+            margin: -28px auto 22px;
+            background: var(--sun);
+            color: var(--text-main);
+            border: 2px solid var(--text-main);
+            box-shadow: 3px 3px 0px var(--text-main);
+            padding: 6px 20px;
+            border-radius: 999px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 800;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            color: #D90429;
-            margin: -40px 0 20px;
         }
 
-        /* === BABYFLIX (estética streaming) === */
+        /* === BABYFLIX (estética streaming vibrante) === */
         #babyflex.tab-content { max-width: 1300px; }
         .babyflix {
-            background: #141414;
+            background: #191324;
             color: #fff;
             padding: 50px 40px 60px;
+            border: 3px solid var(--text-main);
+            border-radius: 28px;
+            box-shadow: 10px 10px 0px var(--coral);
         }
         .babyflix-logo {
-            color: #E50914;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 400;
-            letter-spacing: 6px;
-            margin-bottom: 50px;
+            color: var(--coral);
+            font-family: 'Fraunces', serif;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 45px;
+            text-shadow: 3px 3px 0px #000;
         }
-        .babyflix-sub { color: #bbb; margin-top: -35px; margin-bottom: 40px; }
+        .babyflix-sub {
+            background: var(--mint);
+            color: var(--text-main);
+            margin-top: -30px;
+            margin-bottom: 40px;
+        }
         .flix-placeholder {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.8rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
             letter-spacing: 1px;
             text-transform: uppercase;
-            color: #777;
-            border: 1px dashed #444;
+            color: #B8B0C8;
+            border: 2px dashed #4A3E63;
+            border-radius: 12px;
             padding: 12px 16px;
         }
         .flix-hero {
             position: relative;
             aspect-ratio: 21 / 9;
-            background: #222;
+            background: #261E35;
+            border: 2px solid #4A3E63;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -446,47 +493,54 @@
         .flix-hero-info {
             position: absolute; left: 0; bottom: 0; right: 0;
             padding: 40px;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            background: linear-gradient(to top, rgba(25,19,36,0.95), transparent);
             text-align: left;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
-        .flix-hero-info h3 { text-align: left; font-size: 3rem; margin: 8px 0; color: #fff; }
-        .flix-hero-info p { text-align: left; color: #ddd; font-size: 1.1rem; margin: 0 0 20px; font-family: 'Inter', sans-serif; }
-        .flix-badge { color: #E50914; font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; }
+        .flix-hero-info h3 { text-align: left; font-size: 2.8rem; margin: 8px 0; color: #fff; }
+        .flix-hero-info p { text-align: left; color: #E2DCEB; font-size: 1.1rem; margin: 0 0 20px; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .flix-badge { color: var(--sun); font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; }
         .flix-botoes { display: flex; gap: 12px; }
         .flix-btn {
-            padding: 10px 24px; background: rgba(109,109,110,0.7); color: #fff;
-            font-weight: 600; border-radius: 4px; font-size: 1rem; cursor: pointer;
+            padding: 10px 24px; background: rgba(255,255,255,0.15); color: #fff;
+            font-weight: 700; border-radius: 999px; font-size: 1rem; cursor: pointer;
+            border: 2px solid rgba(255,255,255,0.3);
         }
-        .flix-btn-play { background: #fff; color: #111; }
+        .flix-btn-play { background: var(--coral); color: #fff; border-color: #fff; }
         .flix-fileira-titulo {
-            font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.4rem;
-            margin: 0 0 15px; color: #e5e5e5;
+            font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1.4rem;
+            margin: 0 0 18px; color: var(--sun);
         }
         .flix-fileira {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-            gap: 14px;
+            gap: 18px;
         }
         .flix-capa {
             position: relative;
             aspect-ratio: 2 / 3;
-            background: #2a2a2a;
-            border-radius: 4px;
+            background: #261E35;
+            border: 2px solid #4A3E63;
+            border-radius: 16px;
             overflow: hidden;
             display: flex; align-items: center; justify-content: center;
             cursor: pointer;
-            transition: transform 0.35s ease, box-shadow 0.35s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
-        .flix-capa:hover { transform: scale(1.06); box-shadow: 0 15px 35px rgba(0,0,0,0.6); z-index: 2; }
+        .flix-capa:hover {
+            transform: translateY(-6px) scale(1.03);
+            border-color: var(--sun);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.5);
+            z-index: 2;
+        }
         .flix-capa-info {
             position: absolute; left: 0; right: 0; bottom: 0;
-            padding: 14px; text-align: left;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            font-family: 'Inter', sans-serif;
+            padding: 16px; text-align: left;
+            background: linear-gradient(to top, rgba(25,19,36,0.95), transparent);
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
-        .flix-capa-info b { display: block; font-size: 1rem; }
-        .flix-capa-info small { color: #aaa; font-size: 0.8rem; }
+        .flix-capa-info b { display: block; font-size: 1.05rem; color: #fff; }
+        .flix-capa-info small { color: var(--mint); font-size: 0.85rem; font-weight: 600; }
 
         /* === OFICINA === */
         #ceramica.tab-content { max-width: 1600px; }
@@ -506,59 +560,75 @@
         /* pause-on-hover: para ao passar o mouse sobre uma imagem */
         .esteira-oficina .esteira-trilha:has(.esteira-item:hover) { animation-play-state: paused; }
         .oficina-centro { flex: 1; min-width: 0; }
-        .oficina-centro, .oficina-centro p, .oficina-centro h4 { font-family: 'Inter', sans-serif; }
+        .oficina-centro, .oficina-centro p, .oficina-centro h4 { font-family: 'Plus Jakarta Sans', sans-serif; }
         .oficina-secao-titulo {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.1rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin: 10px 0 30px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--border-color);
+            font-family: 'Fraunces', serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin: 10px 0 28px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--text-main);
         }
         .materiais-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 22px;
             margin-bottom: 70px;
         }
         .material {
-            border: 1px solid var(--border-color);
+            background: #FFFFFF;
+            border: 2px solid var(--text-main);
+            border-radius: 20px;
             padding: 25px 18px;
             text-align: center;
-            transition: border-color 0.3s ease;
+            box-shadow: 5px 5px 0px var(--sun);
+            transition: transform 0.25s ease;
         }
-        .material:hover { border-color: var(--text-main); }
+        .material:nth-child(3n+2) { box-shadow: 5px 5px 0px var(--mint); }
+        .material:nth-child(3n) { box-shadow: 5px 5px 0px var(--coral); }
+        .material:hover { transform: translateY(-4px); }
         .material svg {
             width: 54px; height: 54px;
-            fill: none; stroke: #D90429; stroke-width: 2;
+            fill: none; stroke: var(--coral); stroke-width: 2.2;
             stroke-linecap: round; stroke-linejoin: round;
             margin-bottom: 12px;
         }
-        .material h4 { font-size: 1rem; font-weight: 600; margin: 0 0 8px; }
-        .material p { font-size: 0.92rem; line-height: 1.5; color: var(--text-light); }
-        .passos { list-style: none; padding: 0; margin: 0 0 60px; }
+        .material h4 { font-size: 1.1rem; font-weight: 700; margin: 0 0 8px; color: var(--text-main); }
+        .material p { font-size: 0.95rem; line-height: 1.5; color: var(--text-light); }
+        .passos { list-style: none; padding: 0; margin: 0 0 60px; display: flex; flex-direction: column; gap: 16px; }
         .passo {
             display: flex;
             gap: 22px;
-            align-items: flex-start;
-            padding: 22px 0;
-            border-bottom: 1px solid var(--border-color);
+            align-items: center;
+            padding: 22px 24px;
+            background: #FFFFFF;
+            border: 2px solid var(--text-main);
+            border-radius: 20px;
+            box-shadow: 5px 5px 0px var(--purple);
+        }
+        .passo:nth-child(even) {
+            box-shadow: 5px 5px 0px var(--mint);
         }
         .passo-num {
             flex-shrink: 0;
-            width: 44px; height: 44px;
+            width: 48px; height: 48px;
             border-radius: 50%;
-            background: var(--text-main); color: var(--bg-color);
-            font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.1rem;
+            background: var(--coral); color: #FFFFFF;
+            border: 2px solid var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1.2rem;
             display: flex; align-items: center; justify-content: center;
+            box-shadow: 2px 2px 0px var(--text-main);
         }
-        .passo h4 { font-size: 1.15rem; font-weight: 600; margin: 4px 0 6px; }
-        .passo p { text-align: left; font-size: 1.02rem; line-height: 1.6; margin: 0; max-width: none; }
+        .passo h4 { font-size: 1.2rem; font-weight: 700; margin: 0 0 6px; color: var(--text-main); }
+        .passo p { text-align: left; font-size: 1.05rem; line-height: 1.6; margin: 0; max-width: none; }
         .video-slot {
-            font-family: 'Montserrat', sans-serif; font-size: 0.9rem;
+            font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; font-weight: 700;
             text-transform: uppercase; letter-spacing: 2px;
-            border: 1px solid #111; padding: 40px; text-align: center;
+            background: #FFFFFF;
+            border: 2px dashed var(--text-main);
+            border-radius: 20px;
+            box-shadow: 6px 6px 0px var(--sun);
+            padding: 45px; text-align: center;
         }
         @media (max-width: 1100px) {
             .esteira-oficina { width: 200px; }
@@ -568,25 +638,34 @@
             .babyflix { padding: 30px 15px; }
         }
 
-        /* === SEÇÃO MÚSICAS (PLAYLIST) === */
+        /* === SEÇÃO MÚSICAS (PLAYLIST VIBRANTE) === */
         .playlist-container {
             max-width: 850px;
             margin: 40px auto 0;
-            border-top: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
         }
 
         .musica-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 25px 15px;
-            border-bottom: 1px solid var(--border-color);
+            padding: 22px 26px;
+            background: #FFFFFF;
+            border: 2px solid var(--text-main);
+            border-radius: 20px;
+            box-shadow: 6px 6px 0px var(--sun);
             gap: 20px;
-            transition: background-color 0.3s ease;
+            transition: transform 0.25s ease;
+        }
+
+        .musica-item:nth-child(even) {
+            box-shadow: 6px 6px 0px var(--mint);
         }
 
         .musica-item:hover {
-            background-color: rgba(0, 0, 0, 0.02);
+            transform: translateY(-3px);
         }
 
         .musica-info {
@@ -594,28 +673,35 @@
         }
 
         .musica-numero {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 1.6rem;
-            color: var(--text-light);
-            margin-right: 15px;
+            display: inline-block;
+            background: var(--coral);
+            color: #FFFFFF;
+            border: 2px solid var(--text-main);
+            border-radius: 999px;
+            padding: 4px 12px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: 0.95rem;
+            margin-right: 12px;
         }
 
         .musica-titulo {
-            font-size: 2rem;
-            font-style: italic;
+            font-family: 'Fraunces', serif;
+            font-size: 1.6rem;
+            font-weight: 800;
             color: var(--text-main);
         }
 
         .musica-artista {
             display: block;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.85rem;
-            letter-spacing: 2px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 1px;
             text-transform: uppercase;
             color: var(--text-light);
-            margin-top: 5px;
-            margin-left: 38px;
+            margin-top: 6px;
+            margin-left: 56px;
         }
 
         .musica-midia {
@@ -625,90 +711,7 @@
 
         .musica-midia audio {
             width: 100%;
-            height: 38px;
-        }
-
-        /* === SEÇÃO BABY FLEX (CATÁLOGO DE SÉRIES) === */
-        .babyflex-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 50px;
-            margin-top: 50px;
-        }
-
-        .serie-card {
-            border: 1px solid var(--border-color);
-            background-color: var(--bg-color);
-            display: flex;
-            flex-direction: column;
-            transition: border-color 0.3s ease;
-        }
-
-        .serie-card:hover {
-            border-color: var(--text-main);
-        }
-
-        .midia-slot {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background-color: #EFECE6;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .midia-slot img,
-        .midia-slot video,
-        .midia-slot iframe {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            border: none;
-        }
-
-        .midia-placeholder {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--text-light);
-            padding: 20px;
-            text-align: center;
-            border: 1px dashed #B5B0A8;
-            margin: 20px;
-        }
-
-        .serie-info {
-            padding: 25px 25px 30px;
-            text-align: left;
-        }
-
-        .serie-tag {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.75rem;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-            color: #D90429;
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .serie-info h3 {
-            text-align: left;
-            font-size: 2.2rem;
-            font-style: italic;
-            margin-bottom: 10px;
-        }
-
-        .serie-info p {
-            text-align: left;
-            font-size: 1.35rem;
-            line-height: 1.5;
-            margin: 0;
+            height: 40px;
         }
 
         @media (max-width: 980px) {
@@ -716,22 +719,31 @@
                 width: 140px;
             }
             .numero-um {
-                font-size: 8.5rem;
+                font-size: 7.5rem;
             }
             .palavra-ano {
-                font-size: 4.5rem;
+                font-size: 3.5rem;
             }
             .frase-babys {
-                font-size: 2.8rem;
+                font-size: 1.3rem;
             }
         }
 
         @media (max-width: 680px) {
             .inicio-layout {
                 flex-direction: column;
+                height: auto;
             }
             .esteira-container {
                 display: none;
+            }
+            .musica-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .musica-midia {
+                width: 100%;
+                min-width: 0;
             }
         }
     </style>
@@ -757,15 +769,15 @@
                 <div class="esteira-container esteira-esquerda">
                     <div class="esteira-trilha">
                         <!-- Bloco 1 -->
-                        <div class="esteira-item"><img src="assets/foto1.jpg" alt="Nós 1" onerror="this.src='https://placehold.co/600x800/EAE6DF/111111?text=Foto+1'"></div>
-                        <div class="esteira-item"><img src="assets/foto2.jpg" alt="Nós 2" onerror="this.src='https://placehold.co/600x800/E2DDD5/111111?text=Foto+2'"></div>
-                        <div class="esteira-item"><img src="assets/foto3.jpg" alt="Nós 3" onerror="this.src='https://placehold.co/600x800/EAE6DF/111111?text=Foto+3'"></div>
-                        <div class="esteira-item"><img src="assets/foto4.jpg" alt="Nós 4" onerror="this.src='https://placehold.co/600x800/E2DDD5/111111?text=Foto+4'"></div>
+                        <div class="esteira-item"><img src="assets/foto1.jpg" alt="Nós 1" onerror="this.src='https://placehold.co/600x800/FF4D6D/FFFFFF?text=Foto+1'"></div>
+                        <div class="esteira-item"><img src="assets/foto2.jpg" alt="Nós 2" onerror="this.src='https://placehold.co/600x800/06D6A0/1E152A?text=Foto+2'"></div>
+                        <div class="esteira-item"><img src="assets/foto3.jpg" alt="Nós 3" onerror="this.src='https://placehold.co/600x800/FFD166/1E152A?text=Foto+3'"></div>
+                        <div class="esteira-item"><img src="assets/foto4.jpg" alt="Nós 4" onerror="this.src='https://placehold.co/600x800/8338EC/FFFFFF?text=Foto+4'"></div>
                         <!-- Bloco 2 (Duplicado para loop infinito perfeito) -->
-                        <div class="esteira-item"><img src="assets/foto1.jpg" alt="Nós 1" onerror="this.src='https://placehold.co/600x800/EAE6DF/111111?text=Foto+1'"></div>
-                        <div class="esteira-item"><img src="assets/foto2.jpg" alt="Nós 2" onerror="this.src='https://placehold.co/600x800/E2DDD5/111111?text=Foto+2'"></div>
-                        <div class="esteira-item"><img src="assets/foto3.jpg" alt="Nós 3" onerror="this.src='https://placehold.co/600x800/EAE6DF/111111?text=Foto+3'"></div>
-                        <div class="esteira-item"><img src="assets/foto4.jpg" alt="Nós 4" onerror="this.src='https://placehold.co/600x800/E2DDD5/111111?text=Foto+4'"></div>
+                        <div class="esteira-item"><img src="assets/foto1.jpg" alt="Nós 1" onerror="this.src='https://placehold.co/600x800/FF4D6D/FFFFFF?text=Foto+1'"></div>
+                        <div class="esteira-item"><img src="assets/foto2.jpg" alt="Nós 2" onerror="this.src='https://placehold.co/600x800/06D6A0/1E152A?text=Foto+2'"></div>
+                        <div class="esteira-item"><img src="assets/foto3.jpg" alt="Nós 3" onerror="this.src='https://placehold.co/600x800/FFD166/1E152A?text=Foto+3'"></div>
+                        <div class="esteira-item"><img src="assets/foto4.jpg" alt="Nós 4" onerror="this.src='https://placehold.co/600x800/8338EC/FFFFFF?text=Foto+4'"></div>
                     </div>
                 </div>
 
@@ -785,15 +797,15 @@
                 <div class="esteira-container esteira-direita">
                     <div class="esteira-trilha">
                         <!-- Bloco 1 -->
-                        <div class="esteira-item"><img src="assets/foto5.jpg" alt="Nós 5" onerror="this.src='https://placehold.co/600x800/E2DDD5/111111?text=Foto+5'"></div>
-                        <div class="esteira-item"><img src="assets/foto6.jpg" alt="Nós 6" onerror="this.src='https://placehold.co/600x800/EAE6DF/111111?text=Foto+6'"></div>
-                        <div class="esteira-item"><img src="assets/foto7.jpg" alt="Nós 7" onerror="this.src='https://placehold.co/600x800/E2DDD5/111111?text=Foto+7'"></div>
-                        <div class="esteira-item"><img src="assets/foto8.jpg" alt="Nós 8" onerror="this.src='https://placehold.co/600x800/EAE6DF/111111?text=Foto+8'"></div>
+                        <div class="esteira-item"><img src="assets/foto5.jpg" alt="Nós 5" onerror="this.src='https://placehold.co/600x800/FFD166/1E152A?text=Foto+5'"></div>
+                        <div class="esteira-item"><img src="assets/foto6.jpg" alt="Nós 6" onerror="this.src='https://placehold.co/600x800/FF4D6D/FFFFFF?text=Foto+6'"></div>
+                        <div class="esteira-item"><img src="assets/foto7.jpg" alt="Nós 7" onerror="this.src='https://placehold.co/600x800/8338EC/FFFFFF?text=Foto+7'"></div>
+                        <div class="esteira-item"><img src="assets/foto8.jpg" alt="Nós 8" onerror="this.src='https://placehold.co/600x800/06D6A0/1E152A?text=Foto+8'"></div>
                         <!-- Bloco 2 (Duplicado para loop infinito perfeito) -->
-                        <div class="esteira-item"><img src="assets/foto5.jpg" alt="Nós 5" onerror="this.src='https://placehold.co/600x800/E2DDD5/111111?text=Foto+5'"></div>
-                        <div class="esteira-item"><img src="assets/foto6.jpg" alt="Nós 6" onerror="this.src='https://placehold.co/600x800/EAE6DF/111111?text=Foto+6'"></div>
-                        <div class="esteira-item"><img src="assets/foto7.jpg" alt="Nós 7" onerror="this.src='https://placehold.co/600x800/E2DDD5/111111?text=Foto+7'"></div>
-                        <div class="esteira-item"><img src="assets/foto8.jpg" alt="Nós 8" onerror="this.src='https://placehold.co/600x800/EAE6DF/111111?text=Foto+8'"></div>
+                        <div class="esteira-item"><img src="assets/foto5.jpg" alt="Nós 5" onerror="this.src='https://placehold.co/600x800/FFD166/1E152A?text=Foto+5'"></div>
+                        <div class="esteira-item"><img src="assets/foto6.jpg" alt="Nós 6" onerror="this.src='https://placehold.co/600x800/FF4D6D/FFFFFF?text=Foto+6'"></div>
+                        <div class="esteira-item"><img src="assets/foto7.jpg" alt="Nós 7" onerror="this.src='https://placehold.co/600x800/8338EC/FFFFFF?text=Foto+7'"></div>
+                        <div class="esteira-item"><img src="assets/foto8.jpg" alt="Nós 8" onerror="this.src='https://placehold.co/600x800/06D6A0/1E152A?text=Foto+8'"></div>
                     </div>
                 </div>
 
@@ -805,17 +817,75 @@
             <h2>Nosso Acervo</h2>
             <div class="grid-galeria">
                 <div class="cartao">
-                    <img src="assets/foto1.jpg" alt="Foto 1" onerror="this.src='https://placehold.co/600x800/E0E0E0/111111?text=FOTO'">
+                    <img src="assets/foto1.jpg" alt="Foto 1" onerror="this.src='https://placehold.co/600x800/FF4D6D/FFFFFF?text=FOTO+1'">
                     <div class="cartao-info">
-                        <h3>O começo</h3>
-                        <p>São Paulo, SP</p>
+                        <h3>[Título da Foto 1]</h3>
                     </div>
                 </div>
                 <div class="cartao">
-                    <img src="assets/foto2.jpg" alt="Foto 2" onerror="this.src='https://placehold.co/600x800/E0E0E0/111111?text=FOTO'">
+                    <img src="assets/foto2.jpg" alt="Foto 2" onerror="this.src='https://placehold.co/600x800/FFD166/1E152A?text=FOTO+2'">
                     <div class="cartao-info">
-                        <h3>Dia especial</h3>
-                        <p>Nossa História</p>
+                        <h3>[Título da Foto 2]</h3>
+                    </div>
+                </div>
+                <div class="cartao">
+                    <img src="assets/foto3.jpg" alt="Foto 3" onerror="this.src='https://placehold.co/600x800/06D6A0/1E152A?text=FOTO+3'">
+                    <div class="cartao-info">
+                        <h3>[Título da Foto 3]</h3>
+                    </div>
+                </div>
+                <div class="cartao">
+                    <img src="assets/foto4.jpg" alt="Foto 4" onerror="this.src='https://placehold.co/600x800/8338EC/FFFFFF?text=FOTO+4'">
+                    <div class="cartao-info">
+                        <h3>[Título da Foto 4]</h3>
+                    </div>
+                </div>
+                <div class="cartao">
+                    <img src="assets/foto5.jpg" alt="Foto 5" onerror="this.src='https://placehold.co/600x800/FF4D6D/FFFFFF?text=FOTO+5'">
+                    <div class="cartao-info">
+                        <h3>[Título da Foto 5]</h3>
+                    </div>
+                </div>
+                <div class="cartao">
+                    <img src="assets/foto6.jpg" alt="Foto 6" onerror="this.src='https://placehold.co/600x800/FFD166/1E152A?text=FOTO+6'">
+                    <div class="cartao-info">
+                        <h3>[Título da Foto 6]</h3>
+                    </div>
+                </div>
+                <div class="cartao">
+                    <img src="assets/foto7.jpg" alt="Foto 7" onerror="this.src='https://placehold.co/600x800/06D6A0/1E152A?text=FOTO+7'">
+                    <div class="cartao-info">
+                        <h3>[Título da Foto 7]</h3>
+                    </div>
+                </div>
+                <div class="cartao">
+                    <img src="assets/foto8.jpg" alt="Foto 8" onerror="this.src='https://placehold.co/600x800/8338EC/FFFFFF?text=FOTO+8'">
+                    <div class="cartao-info">
+                        <h3>[Título da Foto 8]</h3>
+                    </div>
+                </div>
+                <div class="cartao">
+                    <img src="assets/foto9.jpg" alt="Foto 9" onerror="this.src='https://placehold.co/600x800/FF4D6D/FFFFFF?text=FOTO+9'">
+                    <div class="cartao-info">
+                        <h3>[Título da Foto 9]</h3>
+                    </div>
+                </div>
+                <div class="cartao">
+                    <img src="assets/foto10.jpg" alt="Foto 10" onerror="this.src='https://placehold.co/600x800/FFD166/1E152A?text=FOTO+10'">
+                    <div class="cartao-info">
+                        <h3>[Título da Foto 10]</h3>
+                    </div>
+                </div>
+                <div class="cartao">
+                    <img src="assets/foto11.jpg" alt="Foto 11" onerror="this.src='https://placehold.co/600x800/06D6A0/1E152A?text=FOTO+11'">
+                    <div class="cartao-info">
+                        <h3>[Título da Foto 11]</h3>
+                    </div>
+                </div>
+                <div class="cartao">
+                    <img src="assets/foto12.jpg" alt="Foto 12" onerror="this.src='https://placehold.co/600x800/8338EC/FFFFFF?text=FOTO+12'">
+                    <div class="cartao-info">
+                        <h3>[Título da Foto 12]</h3>
                     </div>
                 </div>
             </div>
@@ -915,13 +985,13 @@
                 <!-- Carrossel Esquerdo -->
                 <div class="esteira-container esteira-oficina esteira-esquerda">
                     <div class="esteira-trilha">
-                        <div class="esteira-item"><img src="assets/oficina1.jpg" alt="Exemplo 1" onerror="this.src='https://placehold.co/600x800/EAE6DF/111111?text=Exemplo+1'"></div>
-                        <div class="esteira-item"><img src="assets/oficina2.jpg" alt="Exemplo 2" onerror="this.src='https://placehold.co/600x800/E2DDD5/111111?text=Exemplo+2'"></div>
-                        <div class="esteira-item"><img src="assets/oficina3.jpg" alt="Exemplo 3" onerror="this.src='https://placehold.co/600x800/EAE6DF/111111?text=Exemplo+3'"></div>
+                        <div class="esteira-item"><img src="assets/oficina1.jpg" alt="Exemplo 1" onerror="this.src='https://placehold.co/600x800/FF4D6D/FFFFFF?text=Exemplo+1'"></div>
+                        <div class="esteira-item"><img src="assets/oficina2.jpg" alt="Exemplo 2" onerror="this.src='https://placehold.co/600x800/FFD166/1E152A?text=Exemplo+2'"></div>
+                        <div class="esteira-item"><img src="assets/oficina3.jpg" alt="Exemplo 3" onerror="this.src='https://placehold.co/600x800/06D6A0/1E152A?text=Exemplo+3'"></div>
                         <!-- Duplicado para loop infinito -->
-                        <div class="esteira-item"><img src="assets/oficina1.jpg" alt="Exemplo 1" onerror="this.src='https://placehold.co/600x800/EAE6DF/111111?text=Exemplo+1'"></div>
-                        <div class="esteira-item"><img src="assets/oficina2.jpg" alt="Exemplo 2" onerror="this.src='https://placehold.co/600x800/E2DDD5/111111?text=Exemplo+2'"></div>
-                        <div class="esteira-item"><img src="assets/oficina3.jpg" alt="Exemplo 3" onerror="this.src='https://placehold.co/600x800/EAE6DF/111111?text=Exemplo+3'"></div>
+                        <div class="esteira-item"><img src="assets/oficina1.jpg" alt="Exemplo 1" onerror="this.src='https://placehold.co/600x800/FF4D6D/FFFFFF?text=Exemplo+1'"></div>
+                        <div class="esteira-item"><img src="assets/oficina2.jpg" alt="Exemplo 2" onerror="this.src='https://placehold.co/600x800/FFD166/1E152A?text=Exemplo+2'"></div>
+                        <div class="esteira-item"><img src="assets/oficina3.jpg" alt="Exemplo 3" onerror="this.src='https://placehold.co/600x800/06D6A0/1E152A?text=Exemplo+3'"></div>
                     </div>
                 </div>
 
@@ -1022,13 +1092,13 @@
                 <!-- Carrossel Direito -->
                 <div class="esteira-container esteira-oficina esteira-direita">
                     <div class="esteira-trilha">
-                        <div class="esteira-item"><img src="assets/oficina4.jpg" alt="Exemplo 4" onerror="this.src='https://placehold.co/600x800/E2DDD5/111111?text=Exemplo+4'"></div>
-                        <div class="esteira-item"><img src="assets/oficina5.jpg" alt="Exemplo 5" onerror="this.src='https://placehold.co/600x800/EAE6DF/111111?text=Exemplo+5'"></div>
-                        <div class="esteira-item"><img src="assets/oficina6.jpg" alt="Exemplo 6" onerror="this.src='https://placehold.co/600x800/E2DDD5/111111?text=Exemplo+6'"></div>
+                        <div class="esteira-item"><img src="assets/oficina4.jpg" alt="Exemplo 4" onerror="this.src='https://placehold.co/600x800/8338EC/FFFFFF?text=Exemplo+4'"></div>
+                        <div class="esteira-item"><img src="assets/oficina5.jpg" alt="Exemplo 5" onerror="this.src='https://placehold.co/600x800/FFD166/1E152A?text=Exemplo+5'"></div>
+                        <div class="esteira-item"><img src="assets/oficina6.jpg" alt="Exemplo 6" onerror="this.src='https://placehold.co/600x800/FF4D6D/FFFFFF?text=Exemplo+6'"></div>
                         <!-- Duplicado para loop infinito -->
-                        <div class="esteira-item"><img src="assets/oficina4.jpg" alt="Exemplo 4" onerror="this.src='https://placehold.co/600x800/E2DDD5/111111?text=Exemplo+4'"></div>
-                        <div class="esteira-item"><img src="assets/oficina5.jpg" alt="Exemplo 5" onerror="this.src='https://placehold.co/600x800/EAE6DF/111111?text=Exemplo+5'"></div>
-                        <div class="esteira-item"><img src="assets/oficina6.jpg" alt="Exemplo 6" onerror="this.src='https://placehold.co/600x800/E2DDD5/111111?text=Exemplo+6'"></div>
+                        <div class="esteira-item"><img src="assets/oficina4.jpg" alt="Exemplo 4" onerror="this.src='https://placehold.co/600x800/8338EC/FFFFFF?text=Exemplo+4'"></div>
+                        <div class="esteira-item"><img src="assets/oficina5.jpg" alt="Exemplo 5" onerror="this.src='https://placehold.co/600x800/FFD166/1E152A?text=Exemplo+5'"></div>
+                        <div class="esteira-item"><img src="assets/oficina6.jpg" alt="Exemplo 6" onerror="this.src='https://placehold.co/600x800/FF4D6D/FFFFFF?text=Exemplo+6'"></div>
                     </div>
                 </div>
 
@@ -1110,9 +1180,9 @@
 
             const textoTooltip = (local) =>
                 `<div class="tooltip-texto">
-                     <b style="font-family:'Montserrat', sans-serif; font-size:0.9rem; text-transform:uppercase; letter-spacing:1px; color:#111;">${local.titulo}</b>
+                     <b style="font-family:'Plus Jakarta Sans', sans-serif; font-size:1rem; font-weight:800; color:#1E152A;">${local.titulo}</b>
                      <br>
-                     <span style="color:#555; margin-top:8px; display:inline-block; font-size:1.2rem;">${local.desc}</span>
+                     <span style="color:#594D6B; margin-top:6px; display:inline-block; font-size:0.95rem; font-weight:600;">${local.desc}</span>
                  </div>`;
 
             locais.forEach(local => {
@@ -1122,7 +1192,7 @@
                 if (local.status === "concluido") {
                     // Concluído: coração vermelho pulsante + foto (com placeholder se não existir)
                     icon = heartIconConcluido;
-                    conteudo = `<img src="${local.foto}" class="tooltip-imagem" onerror="this.onerror=null; this.src='https://placehold.co/300x200/E0E0E0/111111?text=FOTO'">` + textoTooltip(local);
+                    conteudo = `<img src="${local.foto}" class="tooltip-imagem" onerror="this.onerror=null; this.src='https://placehold.co/300x200/FF4D6D/FFFFFF?text=FOTO'">` + textoTooltip(local);
                 } else {
                     // Futuro: coração cinza estático, sem bloco de imagem
                     icon = heartIconFuturo;
@@ -1159,13 +1229,13 @@
             resizeCanvas();
 
             const cores = [
-                '#D90429', // Vermelho principal
-                '#EF233C', // Vermelho vivo
-                '#FFD166', // Dourado
-                '#FF4D6D', // Rosa intenso
-                '#FF8FA3', // Rosa suave
-                '#F4A261', // Âmbar / Champagne
-                '#111111'  // Toque editorial preto
+                '#FF4D6D', // Coral vibrante
+                '#FFD166', // Amarelo sol
+                '#06D6A0', // Verde menta
+                '#8338EC', // Roxo vibrante
+                '#118AB2', // Azul vivo
+                '#FB5607', // Laranja intenso
+                '#FF8FA3'  // Rosa suave
             ];
 
             function criarExplosao(x, y) {

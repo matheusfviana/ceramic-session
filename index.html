@@ -391,6 +391,149 @@
             z-index: 9999;
         }
 
+        /* === SEÇÃO MÚSICAS (PLAYLIST) === */
+        .playlist-container {
+            max-width: 850px;
+            margin: 40px auto 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .musica-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 25px 15px;
+            border-bottom: 1px solid var(--border-color);
+            gap: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .musica-item:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .musica-info {
+            text-align: left;
+        }
+
+        .musica-numero {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.6rem;
+            color: var(--text-light);
+            margin-right: 15px;
+        }
+
+        .musica-titulo {
+            font-size: 2rem;
+            font-style: italic;
+            color: var(--text-main);
+        }
+
+        .musica-artista {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-top: 5px;
+            margin-left: 38px;
+        }
+
+        .musica-midia {
+            min-width: 280px;
+            text-align: right;
+        }
+
+        .musica-midia audio {
+            width: 100%;
+            height: 38px;
+        }
+
+        /* === SEÇÃO BABY FLEX (CATÁLOGO DE SÉRIES) === */
+        .babyflex-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 50px;
+            margin-top: 50px;
+        }
+
+        .serie-card {
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.3s ease;
+        }
+
+        .serie-card:hover {
+            border-color: var(--text-main);
+        }
+
+        .midia-slot {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: #EFECE6;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .midia-slot img,
+        .midia-slot video,
+        .midia-slot iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border: none;
+        }
+
+        .midia-placeholder {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            padding: 20px;
+            text-align: center;
+            border: 1px dashed #B5B0A8;
+            margin: 20px;
+        }
+
+        .serie-info {
+            padding: 25px 25px 30px;
+            text-align: left;
+        }
+
+        .serie-tag {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #D90429;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .serie-info h3 {
+            text-align: left;
+            font-size: 2.2rem;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .serie-info p {
+            text-align: left;
+            font-size: 1.35rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
         @media (max-width: 980px) {
             .esteira-container {
                 width: 140px;
@@ -420,9 +563,10 @@
 
     <nav>
         <button class="tab-btn active" onclick="openTab('inicio')">Início</button>
-        <button class="tab-btn" onclick="openTab('fotos')">Registros</button>
-        <button class="tab-btn" onclick="openTab('arte')">Galeria</button>
-        <button class="tab-btn" onclick="openTab('mapa', true)">Diário de Bordo</button>
+        <button class="tab-btn" onclick="openTab('fotos')">Acervo</button>
+        <button class="tab-btn" onclick="openTab('musicas')">Músicas</button>
+        <button class="tab-btn" onclick="openTab('mapa', true)">Aventuras</button>
+        <button class="tab-btn" onclick="openTab('babyflex')">Baby Flex</button>
         <button class="tab-btn" onclick="openTab('ceramica')">Oficina</button>
     </nav>
 
@@ -479,9 +623,9 @@
             </div>
         </div>
 
-        <!-- FOTOGRAFIA -->
+        <!-- ACERVO -->
         <div id="fotos" class="tab-content">
-            <h2>Nossos registros</h2>
+            <h2>Nosso Acervo</h2>
             <div class="grid-galeria">
                 <div class="cartao">
                     <img src="assets/foto1.jpg" alt="Foto 1" onerror="this.src='https://placehold.co/600x800/E0E0E0/111111?text=FOTO'">
@@ -500,33 +644,103 @@
             </div>
         </div>
 
-        <!-- GALERIA DE ARTE -->
-        <div id="arte" class="tab-content">
-            <h2>Nosso Acervo</h2>
-            <div class="grid-galeria">
-                <div class="cartao">
-                    <img src="assets/anime.jpg" alt="Abertura de Anime" onerror="this.src='https://placehold.co/600x800/E0E0E0/111111?text=VIDEO'">
-                    <div class="cartao-info">
-                        <h3>Abertura Original</h3>
-                        <p>Nós e o Scooby</p>
+        <!-- MÚSICAS -->
+        <div id="musicas" class="tab-content">
+            <h2>Nossa Trilha Sonora</h2>
+            <p style="margin-bottom: 50px;">As músicas que embalam a nossa história</p>
+
+            <div class="playlist-container">
+                <!-- Faixa 1 -->
+                <div class="musica-item">
+                    <div class="musica-info">
+                        <span class="musica-numero">01.</span>
+                        <span class="musica-titulo">[Nome da Música 1]</span>
+                        <span class="musica-artista">[Artista]</span>
+                    </div>
+                    <div class="musica-midia">
+                        <!-- Substitua o src pelo arquivo de áudio em assets/ ou por um embed do Spotify -->
+                        <audio controls src="assets/musica1.mp3"></audio>
                     </div>
                 </div>
-                
-                <div class="cartao">
-                    <img src="assets/ceramica.jpg" alt="Cerâmica" onerror="this.src='https://placehold.co/600x800/E0E0E0/111111?text=CERAMICA'">
-                    <div class="cartao-info">
-                        <h3>Obras em Argila</h3>
-                        <p>Para nossos apartamentos</p>
+
+                <!-- Faixa 2 -->
+                <div class="musica-item">
+                    <div class="musica-info">
+                        <span class="musica-numero">02.</span>
+                        <span class="musica-titulo">[Nome da Música 2]</span>
+                        <span class="musica-artista">[Artista]</span>
+                    </div>
+                    <div class="musica-midia">
+                        <audio controls src="assets/musica2.mp3"></audio>
+                    </div>
+                </div>
+
+                <!-- Faixa 3 -->
+                <div class="musica-item">
+                    <div class="musica-info">
+                        <span class="musica-numero">03.</span>
+                        <span class="musica-titulo">[Nome da Música 3]</span>
+                        <span class="musica-artista">[Artista]</span>
+                    </div>
+                    <div class="musica-midia">
+                        <audio controls src="assets/musica3.mp3"></audio>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- MAPA -->
+        <!-- AVENTURAS (MAPA) -->
         <div id="mapa" class="tab-content">
-            <h2>Onde Andamos</h2>
+            <h2>Nossas Aventuras</h2>
             <p style="margin-bottom: 60px;">Lugares em que nosso amor foi cultivado</p>
             <div id="mapa-brasil"></div>
+        </div>
+
+        <!-- BABY FLEX -->
+        <div id="babyflex" class="tab-content">
+            <h2>Baby Flex</h2>
+            <p style="margin-bottom: 50px;">Séries originais sobre a nossa vida</p>
+
+            <div class="babyflex-grid">
+                <!-- Série / Título 1 -->
+                <div class="serie-card">
+                    <div class="midia-slot">
+                        <!-- Para anexar sua mídia, substitua o span abaixo por <video controls src="assets/seu-video.mp4"></video> ou <img src="assets/sua-capa.jpg"> -->
+                        <span class="midia-placeholder">[ Espaço para anexar mídia: vídeo, foto ou iframe ]</span>
+                    </div>
+                    <div class="serie-info">
+                        <span class="serie-tag">Série Original • 1ª Temporada</span>
+                        <h3>[Título da Série 1]</h3>
+                        <p>Adicione aqui a sinopse ou descrição deste episódio especial da nossa vida.</p>
+                    </div>
+                </div>
+
+                <!-- Série / Título 2 -->
+                <div class="serie-card">
+                    <div class="midia-slot">
+                        <!-- Para anexar sua mídia, substitua o span abaixo por <video controls src="assets/seu-video.mp4"></video> ou <img src="assets/sua-capa.jpg"> -->
+                        <span class="midia-placeholder">[ Espaço para anexar mídia: vídeo, foto ou iframe ]</span>
+                    </div>
+                    <div class="serie-info">
+                        <span class="serie-tag">Série Original • Episódio Especial</span>
+                        <h3>[Título da Série 2]</h3>
+                        <p>Adicione aqui a sinopse ou descrição deste episódio especial da nossa vida.</p>
+                    </div>
+                </div>
+
+                <!-- Série / Título 3 -->
+                <div class="serie-card">
+                    <div class="midia-slot">
+                        <!-- Para anexar sua mídia, substitua o span abaixo por <video controls src="assets/seu-video.mp4"></video> ou <img src="assets/sua-capa.jpg"> -->
+                        <span class="midia-placeholder">[ Espaço para anexar mídia: vídeo, foto ou iframe ]</span>
+                    </div>
+                    <div class="serie-info">
+                        <span class="serie-tag">Documentário • Bastidores</span>
+                        <h3>[Título da Série 3]</h3>
+                        <p>Adicione aqui a sinopse ou descrição deste episódio especial da nossa vida.</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- OFICINA -->

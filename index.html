@@ -489,16 +489,25 @@
             position: absolute; inset: 0;
             width: 100%; height: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease, filter 0.4s ease;
         }
+        .flix-hero { aspect-ratio: 16 / 9; cursor: pointer; }
+        /* Sinopse em overlay: escondida, aparece no hover escurecendo a tela */
         .flix-hero-info {
-            position: absolute; left: 0; bottom: 0; right: 0;
-            padding: 40px;
-            background: linear-gradient(to top, rgba(25,19,36,0.95), transparent);
+            position: absolute; inset: 0;
+            padding: 50px 60px;
+            background: rgba(12, 8, 20, 0.78);
+            display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
             text-align: left;
             font-family: 'Plus Jakarta Sans', sans-serif;
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
+        .flix-hero:hover .flix-hero-info,
+        .flix-hero:focus-within .flix-hero-info { opacity: 1; }
+        .flix-hero:hover img, .flix-hero:focus-within img { transform: scale(1.03); filter: blur(2px); }
         .flix-hero-info h3 { text-align: left; font-size: 2.8rem; margin: 8px 0; color: #fff; }
-        .flix-hero-info p { text-align: left; color: #E2DCEB; font-size: 1.1rem; margin: 0 0 20px; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .flix-hero-info p { text-align: left; color: #E2DCEB; font-size: 1.25rem; line-height: 1.6; max-width: 650px; margin: 0 0 24px; font-family: 'Plus Jakarta Sans', sans-serif; }
         .flix-badge { color: var(--sun); font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; }
         .flix-botoes { display: flex; gap: 12px; }
         .flix-btn {
@@ -534,13 +543,26 @@
             z-index: 2;
         }
         .flix-capa-info {
-            position: absolute; left: 0; right: 0; bottom: 0;
-            padding: 16px; text-align: left;
-            background: linear-gradient(to top, rgba(25,19,36,0.95), transparent);
+            position: absolute; inset: 0;
+            padding: 20px 18px; text-align: left;
+            background: rgba(12, 8, 20, 0.82);
             font-family: 'Plus Jakarta Sans', sans-serif;
+            display: flex; flex-direction: column; justify-content: center;
+            opacity: 0;
+            transition: opacity 0.35s ease;
         }
-        .flix-capa-info b { display: block; font-size: 1.05rem; color: #fff; }
+        .flix-capa:hover .flix-capa-info,
+        .flix-capa:focus-within .flix-capa-info { opacity: 1; }
+        .flix-capa:hover img, .flix-capa:focus-within img { filter: blur(1.5px); }
+        .flix-capa-info b { display: block; font-size: 1.1rem; line-height: 1.3; color: var(--sun); margin-bottom: 10px; }
+        .flix-capa-info p { text-align: left; color: #E2DCEB; font-size: 0.92rem; line-height: 1.5; margin: 0; max-width: none; font-family: 'Plus Jakarta Sans', sans-serif; }
         .flix-capa-info small { color: var(--mint); font-size: 0.85rem; font-weight: 600; }
+        @media (max-width: 780px) {
+            .flix-hero-info { padding: 20px; }
+            .flix-hero-info h3 { font-size: 1.4rem; }
+            .flix-hero-info p { font-size: 0.9rem; margin-bottom: 12px; }
+            .flix-hero-info .flix-botoes { display: none; }
+        }
 
         /* === OFICINA === */
         #ceramica.tab-content { max-width: 1600px; }
@@ -555,8 +577,8 @@
             position: sticky;
             top: 0;
         }
-        .esteira-oficina.esteira-esquerda .esteira-trilha { animation-duration: 55s; } /* mais lento */
-        .esteira-oficina.esteira-direita .esteira-trilha { animation-duration: 55s; }
+        .esteira-oficina.esteira-esquerda .esteira-trilha { animation-duration: 90s; } /* mais lento */
+        .esteira-oficina.esteira-direita .esteira-trilha { animation-duration: 90s; }
         /* pause-on-hover: para ao passar o mouse sobre uma imagem */
         .esteira-oficina .esteira-trilha:has(.esteira-item:hover) { animation-play-state: paused; }
         .oficina-centro { flex: 1; min-width: 0; }
@@ -1117,13 +1139,13 @@
                 <span class="subtitulo-secao babyflix-sub">Previews</span>
 
                 <!-- Destaque principal -->
-                <div class="flix-hero">
-                    <!-- Para anexar: substitua o span por <video autoplay muted loop src="assets/seu-trailer.mp4"></video> ou <img src="assets/sua-capa.jpg"> -->
-                    <span class="flix-placeholder">[ Mídia em destaque: trailer ou capa ]</span>
+                <div class="flix-hero" tabindex="0">
+                    <img src="assets/sua-capa.jpg" alt="As aventuras de BABY e BABY!">
+                    <!-- Sinopse: aparece ao passar o mouse (escurece a tela) -->
                     <div class="flix-hero-info">
                         <span class="flix-badge">Série Original BabyFlix</span>
-                        <h3>[Título em Destaque]</h3>
-                        <p>Sinopse curta da série em destaque sobre a nossa vida.</p>
+                        <h3>As aventuras de BABY e BABY!</h3>
+                        <p>Dois grandes amores embarcam em uma jornada repleta de romance e surpresas divertidas para zerar uma lista de encontros perfeita ao longo de 2026.</p>
                         <div class="flix-botoes">
                             <span class="flix-btn flix-btn-play">▶ Assistir</span>
                             <span class="flix-btn">+ Minha lista</span>
@@ -1134,12 +1156,11 @@
                 <!-- Fileira de capas -->
                 <h4 class="flix-fileira-titulo">Em alta</h4>
                 <div class="flix-fileira">
-                    <!-- Para anexar: troque o span de cada .flix-capa por <img src="assets/capa1.jpg"> ou <video src="assets/ep1.mp4" muted loop></video> -->
-                    <div class="flix-capa"><span class="flix-placeholder">[ Capa 1 ]</span><div class="flix-capa-info"><b>[Série 1]</b><small>Temporada 1</small></div></div>
-                    <div class="flix-capa"><span class="flix-placeholder">[ Capa 2 ]</span><div class="flix-capa-info"><b>[Série 2]</b><small>Episódio Especial</small></div></div>
-                    <div class="flix-capa"><span class="flix-placeholder">[ Capa 3 ]</span><div class="flix-capa-info"><b>[Série 3]</b><small>Documentário</small></div></div>
-                    <div class="flix-capa"><span class="flix-placeholder">[ Capa 4 ]</span><div class="flix-capa-info"><b>[Série 4]</b><small>Minissérie</small></div></div>
-                    <div class="flix-capa"><span class="flix-placeholder">[ Capa 5 ]</span><div class="flix-capa-info"><b>[Série 5]</b><small>Em breve</small></div></div>
+                    <div class="flix-capa" tabindex="0"><img src="assets/capa1.jpg" alt="Scooby Holmes e o mistério do chip de batata doce"><div class="flix-capa-info"><b>Scooby Holmes e o mistério do chip de batata doce</b><p>O focinho de ponta preta mais investigativo do pedaço entra em ação para desvendar o misterioso sumiço de seu petisco favorito.</p></div></div>
+                    <div class="flix-capa" tabindex="0"><img src="assets/capa2.jpeg" alt="A Loba da Faria Lima"><div class="flix-capa-info"><b>A Loba da Faria Lima</b><p>Em meio ao caos corporativo da avenida mais famosa de São Paulo, uma mulher ambiciosa descobre que o verdadeiro sucesso é ditar as próprias regras no mercado financeiro.</p></div></div>
+                    <div class="flix-capa" tabindex="0"><img src="assets/capa3.jpg" alt="Guerra dos cravos, a batalha da pele"><div class="flix-capa-info"><b>Guerra dos cravos, a batalha da pele</b><p>Um exército microscópico e lúdico se arma até os dentes para defender seu território facial contra uma ameaça colossal: dedos implacáveis vindos dos céus.</p></div></div>
+                    <div class="flix-capa" tabindex="0"><img src="assets/capa4.jpg" alt="Freela, a genialidade tem seu preço"><div class="flix-capa-info"><b>Freela, a genialidade tem seu preço</b><p>Um jovem prodígio e almofadinha descobre, entre noites mal dormidas e telas brilhantes, que vender sua mente no mercado autônomo custa muito mais do que imaginava.</p></div></div>
+                    <div class="flix-capa" tabindex="0"><img src="assets/capa5.jpg" alt="As patricinhas de Au Au Hills"><div class="flix-capa-info"><b>As patricinhas de Au Au Hills</b><p>Um grupo de pugs super estilosas desfila por praias luxuosas de Beverly Hills, provando que glamour, tutus cor-de-rosa e atitude são essenciais para dominar a costa.</p></div></div>
                 </div>
             </div>
         </div>
@@ -1154,10 +1175,14 @@
                         <div class="esteira-item"><img src="assets/oficina1.jpg" alt="Exemplo 1" onerror="this.src='https://placehold.co/600x800/FF4D6D/FFFFFF?text=Exemplo+1'"></div>
                         <div class="esteira-item"><img src="assets/oficina2.jpg" alt="Exemplo 2" onerror="this.src='https://placehold.co/600x800/FFD166/1E152A?text=Exemplo+2'"></div>
                         <div class="esteira-item"><img src="assets/oficina3.jpg" alt="Exemplo 3" onerror="this.src='https://placehold.co/600x800/06D6A0/1E152A?text=Exemplo+3'"></div>
+                        <div class="esteira-item"><img src="assets/oficina4.jpg" alt="Exemplo 4" onerror="this.src='https://placehold.co/600x800/8338EC/FFFFFF?text=Exemplo+4'"></div>
+                        <div class="esteira-item"><img src="assets/oficina5.jpg" alt="Exemplo 5" onerror="this.src='https://placehold.co/600x800/FFD166/1E152A?text=Exemplo+5'"></div>
                         <!-- Duplicado para loop infinito -->
                         <div class="esteira-item"><img src="assets/oficina1.jpg" alt="Exemplo 1" onerror="this.src='https://placehold.co/600x800/FF4D6D/FFFFFF?text=Exemplo+1'"></div>
                         <div class="esteira-item"><img src="assets/oficina2.jpg" alt="Exemplo 2" onerror="this.src='https://placehold.co/600x800/FFD166/1E152A?text=Exemplo+2'"></div>
                         <div class="esteira-item"><img src="assets/oficina3.jpg" alt="Exemplo 3" onerror="this.src='https://placehold.co/600x800/06D6A0/1E152A?text=Exemplo+3'"></div>
+                        <div class="esteira-item"><img src="assets/oficina4.jpg" alt="Exemplo 4" onerror="this.src='https://placehold.co/600x800/8338EC/FFFFFF?text=Exemplo+4'"></div>
+                        <div class="esteira-item"><img src="assets/oficina5.jpg" alt="Exemplo 5" onerror="this.src='https://placehold.co/600x800/FFD166/1E152A?text=Exemplo+5'"></div>
                     </div>
                 </div>
 
@@ -1258,13 +1283,17 @@
                 <!-- Carrossel Direito -->
                 <div class="esteira-container esteira-oficina esteira-direita">
                     <div class="esteira-trilha">
-                        <div class="esteira-item"><img src="assets/oficina4.jpg" alt="Exemplo 4" onerror="this.src='https://placehold.co/600x800/8338EC/FFFFFF?text=Exemplo+4'"></div>
-                        <div class="esteira-item"><img src="assets/oficina5.jpg" alt="Exemplo 5" onerror="this.src='https://placehold.co/600x800/FFD166/1E152A?text=Exemplo+5'"></div>
                         <div class="esteira-item"><img src="assets/oficina6.jpg" alt="Exemplo 6" onerror="this.src='https://placehold.co/600x800/FF4D6D/FFFFFF?text=Exemplo+6'"></div>
+                        <div class="esteira-item"><img src="assets/oficina7.jpg" alt="Exemplo 7" onerror="this.src='https://placehold.co/600x800/06D6A0/1E152A?text=Exemplo+7'"></div>
+                        <div class="esteira-item"><img src="assets/oficina8.jpg" alt="Exemplo 8" onerror="this.src='https://placehold.co/600x800/8338EC/FFFFFF?text=Exemplo+8'"></div>
+                        <div class="esteira-item"><img src="assets/oficina9.jpg" alt="Exemplo 9" onerror="this.src='https://placehold.co/600x800/FFD166/1E152A?text=Exemplo+9'"></div>
+                        <div class="esteira-item"><img src="assets/oficina10.jpg" alt="Exemplo 10" onerror="this.src='https://placehold.co/600x800/FF4D6D/FFFFFF?text=Exemplo+10'"></div>
                         <!-- Duplicado para loop infinito -->
-                        <div class="esteira-item"><img src="assets/oficina4.jpg" alt="Exemplo 4" onerror="this.src='https://placehold.co/600x800/8338EC/FFFFFF?text=Exemplo+4'"></div>
-                        <div class="esteira-item"><img src="assets/oficina5.jpg" alt="Exemplo 5" onerror="this.src='https://placehold.co/600x800/FFD166/1E152A?text=Exemplo+5'"></div>
                         <div class="esteira-item"><img src="assets/oficina6.jpg" alt="Exemplo 6" onerror="this.src='https://placehold.co/600x800/FF4D6D/FFFFFF?text=Exemplo+6'"></div>
+                        <div class="esteira-item"><img src="assets/oficina7.jpg" alt="Exemplo 7" onerror="this.src='https://placehold.co/600x800/06D6A0/1E152A?text=Exemplo+7'"></div>
+                        <div class="esteira-item"><img src="assets/oficina8.jpg" alt="Exemplo 8" onerror="this.src='https://placehold.co/600x800/8338EC/FFFFFF?text=Exemplo+8'"></div>
+                        <div class="esteira-item"><img src="assets/oficina9.jpg" alt="Exemplo 9" onerror="this.src='https://placehold.co/600x800/FFD166/1E152A?text=Exemplo+9'"></div>
+                        <div class="esteira-item"><img src="assets/oficina10.jpg" alt="Exemplo 10" onerror="this.src='https://placehold.co/600x800/FF4D6D/FFFFFF?text=Exemplo+10'"></div>
                     </div>
                 </div>
 

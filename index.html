@@ -273,13 +273,13 @@
             height: 74vh;
             min-height: 500px;
             gap: 40px;
-            max-width: 1500px;
+            max-width: 1600px;
             margin: 0 auto;
         }
 
         /* Esteiras Laterais de Fotos */
         .esteira-container {
-            width: 240px;
+            width: 320px;
             height: 100%;
             overflow: hidden;
             position: relative;
@@ -296,11 +296,11 @@
         }
 
         .esteira-esquerda .esteira-trilha {
-            animation: rolarEsteiraSubindo 26s linear infinite;
+            animation: rolarEsteiraSubindo 90s linear infinite;
         }
 
         .esteira-direita .esteira-trilha {
-            animation: rolarEsteiraDescendo 26s linear infinite;
+            animation: rolarEsteiraDescendo 90s linear infinite;
         }
 
         .esteira-container:hover .esteira-trilha {
@@ -653,10 +653,10 @@
             padding: 45px; text-align: center;
         }
         @media (max-width: 1100px) {
-            .esteira-oficina { width: 200px; }
+            .esteira-container, .esteira-oficina { width: 200px; }
         }
         @media (max-width: 780px) {
-            .esteira-oficina { display: none; }
+            .esteira-container, .esteira-oficina { display: none; }
             .babyflix { padding: 30px 15px; }
         }
 

@@ -201,14 +201,188 @@
             margin-top: 6px;
         }
 
+        /* === ABA AVENTURAS: LISTA À ESQUERDA E MAPA À DIREITA === */
+        #mapa.tab-content {
+            max-width: 1600px;
+        }
+
+        .aventuras-layout {
+            display: flex;
+            align-items: stretch;
+            gap: 28px;
+            margin-top: 10px;
+        }
+
+        .aventuras-lista-container {
+            width: 420px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            background: #FFFFFF;
+            border: 3px solid var(--text-main);
+            border-radius: 24px;
+            box-shadow: 8px 8px 0px var(--coral);
+            overflow: hidden;
+            height: 70vh;
+            min-height: 520px;
+        }
+
+        .aventuras-lista-header {
+            padding: 18px 22px;
+            border-bottom: 2px solid var(--text-main);
+            background: var(--bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .aventuras-lista-header h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .aventuras-contador {
+            font-size: 0.82rem;
+            font-weight: 800;
+            background: var(--sun);
+            color: var(--text-main);
+            padding: 4px 12px;
+            border-radius: 999px;
+            border: 1.5px solid var(--text-main);
+            box-shadow: 2px 2px 0px var(--text-main);
+        }
+
+        .aventuras-lista {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--coral) #F0EAE1;
+        }
+
+        .aventuras-lista::-webkit-scrollbar {
+            width: 8px;
+        }
+        .aventuras-lista::-webkit-scrollbar-track {
+            background: #F0EAE1;
+            border-radius: 4px;
+        }
+        .aventuras-lista::-webkit-scrollbar-thumb {
+            background: var(--coral);
+            border-radius: 4px;
+            border: 1px solid var(--text-main);
+        }
+
+        .aventura-card {
+            background: #FFFFFF;
+            border: 2px solid var(--text-main);
+            border-radius: 16px;
+            padding: 14px 16px;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px var(--sun);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+            text-align: left;
+            position: relative;
+        }
+
+        .aventura-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px var(--coral);
+            background: #FFFDF9;
+        }
+
+        .aventura-card.ativo {
+            border-color: var(--coral);
+            background: #FFF0F3;
+            box-shadow: 5px 5px 0px var(--text-main);
+            transform: translate(-1px, -1px);
+        }
+
+        .aventura-card-topo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .aventura-card-titulo {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .aventura-status-badge {
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 3px 9px;
+            border-radius: 999px;
+            border: 1px solid var(--text-main);
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .badge-concluido {
+            background: #FFE5E9;
+            color: #D90429;
+            border-color: #D90429;
+        }
+
+        .badge-futuro {
+            background: #F0EFF2;
+            color: #6C757D;
+            border-color: #A0A0A0;
+        }
+
+        .aventura-card-desc {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-light);
+            line-height: 1.45;
+            margin: 0;
+        }
+
+        .aventuras-mapa-container {
+            flex: 1;
+            min-width: 0;
+            height: 70vh;
+            min-height: 520px;
+        }
+
         /* Mapa Colorido */
         #mapa-brasil {
             width: 100%;
-            height: 62vh;
+            height: 100%;
             border: 3px solid var(--text-main);
             border-radius: 24px;
             overflow: hidden;
             box-shadow: 8px 8px 0px var(--mint);
+        }
+
+        @media (max-width: 980px) {
+            .aventuras-layout {
+                flex-direction: column;
+            }
+            .aventuras-lista-container {
+                width: 100%;
+                height: 380px;
+                min-height: auto;
+            }
+            .aventuras-mapa-container {
+                height: 480px;
+                min-height: auto;
+            }
         }
 
         @keyframes fadeIn {
@@ -1345,8 +1519,25 @@
         <div id="mapa" class="tab-content">
             <h2>Aventuras</h2>
             <span class="subtitulo-secao">Lista 2026</span>
-            <p style="margin-bottom: 60px;">Os primeiros itens de uma longa lista a ser vivida.</p>
-            <div id="mapa-brasil"></div>
+            <p style="margin-bottom: 35px;">Os primeiros itens de uma longa lista a ser vivida.</p>
+            
+            <div class="aventuras-layout">
+                <!-- Lista de Aventuras à Esquerda -->
+                <div class="aventuras-lista-container">
+                    <div class="aventuras-lista-header">
+                        <h3>Aventuras 2026</h3>
+                        <span id="aventuras-contador" class="aventuras-contador">14 momentos</span>
+                    </div>
+                    <div id="aventuras-lista" class="aventuras-lista">
+                        <!-- Itens renderizados via JS -->
+                    </div>
+                </div>
+
+                <!-- Mapa à Direita -->
+                <div class="aventuras-mapa-container">
+                    <div id="mapa-brasil"></div>
+                </div>
+            </div>
         </div>
 
         <!-- BABYFLIX -->
@@ -1624,6 +1815,82 @@
         let mapInitialized = false;
         let map;
 
+        // Lista de eventos: status "concluido" (com foto) ou "futuro" (sem foto)
+        const locais = [
+            { lat: -23.6417,  lng: -46.5327,  titulo: "Banho de chuva",                   desc: "16/01/26 | Old baby home",                                      status: "concluido", foto: "assets/0-chuva.jpg" },
+            { lat: -23.563,   lng: -46.666,   titulo: "1º Date no Botanikafé",            desc: "26/07/26 | Alameda Lorena, 1765 - Jardins",                     status: "concluido", foto: "assets/1-botanikafe.jpg" },
+            { lat: -23.565,   lng: -46.697,   titulo: "Aula de Dança",                    desc: "Data Proposta: 12/12/26 | Westside Full",                       status: "futuro",    foto: null },
+            { lat: -23.2198,  lng: -44.7130,  titulo: "Viagem para a praia",              desc: "05/06/26 | Paraty, RJ",                                         status: "concluido", foto: "assets/3-praia-paraty.jpg" },
+            { lat: -23.6152,  lng: -46.6286,  titulo: "Noite de pintura de telas",        desc: "03/06/26 | Baby home",                                          status: "concluido", foto: "assets/4-pintura.jpg" },
+            { lat: -23.437,   lng: -46.625,   titulo: "Trilha nível INICIANTE",           desc: "Data Proposta: 19/12/26 | Mirante da Pedra Grande, Cantareira", status: "futuro",    foto: null },
+            { lat: -23.238,   lng: -44.646,   titulo: "Ver o céu estrelado",              desc: "05/06/26 | Paraty Mirim, RJ",                                   status: "concluido", foto: "assets/5-ceu-estrelado.jpg" },
+            { lat: -23.543,   lng: -46.642,   titulo: "Free walking tour e date de cores", desc: "10/03/26 | Praça da República, SP",                            status: "concluido", foto: "assets/6-walking-tour.jpg" },
+            { lat: -23.097,   lng: -47.013,   titulo: "Aventura Hopi Hari / Asa Delta",   desc: "28/03/26 | Hopi Hari, SP",                                      status: "concluido", foto: "assets/7-aventura.jpg" },
+            { lat: -23.584,   lng: -46.642,   titulo: "Comer num restaurante Michelin",   desc: "Data Proposta: 11/11/26 | AE! Cozinha - Vila Mariana",          status: "futuro",    foto: null },
+            { lat: -23.616413, lng: -46.628098, titulo: "Descobrir um lugar novo (Mariah's)", desc: "02/07/26 | Rua Lomas Valentinas, 410 - SP",               status: "concluido", foto: "assets/9-mariahs.jpg" },
+            { lat: -23.555,   lng: -46.634,   titulo: "Show do Don L",                    desc: "29/05/26 | Cine Joia",                                          status: "concluido", foto: "assets/10-don-l.jpg" },
+            { lat: -23.527,   lng: -46.678,   titulo: "Show da Liniker",                  desc: "11/07/26 | Nu Arena, SP",                                       status: "concluido", foto: "assets/10-liniker.jpg" },
+            { lat: -23.597,   lng: -46.602,   titulo: "Jantar em casa, menu completo",    desc: "Data Proposta: 06/12/26 | Rua Dr. Elisio de Castro, 429",       status: "futuro",    foto: null }
+        ];
+
+        function focarLocalAventura(index) {
+            const local = locais[index];
+            if (!local) return;
+
+            document.querySelectorAll('.aventura-card').forEach((card, i) => {
+                card.classList.toggle('ativo', i === index);
+            });
+
+            if (!map) {
+                initMap();
+            }
+
+            if (map) {
+                map.flyTo([local.lat, local.lng], 15, {
+                    duration: 1.2
+                });
+
+                if (local.marker) {
+                    setTimeout(() => {
+                        local.marker.openTooltip();
+                    }, 350);
+                }
+            }
+        }
+
+        function renderizarListaAventuras() {
+            const listaEl = document.getElementById('aventuras-lista');
+            if (!listaEl) return;
+            listaEl.innerHTML = '';
+
+            locais.forEach((local, index) => {
+                const card = document.createElement('div');
+                card.className = 'aventura-card';
+                card.id = `aventura-card-${index}`;
+                card.onclick = () => focarLocalAventura(index);
+
+                const statusTexto = local.status === 'concluido' ? '❤️ Concluído' : '✨ Planejado';
+                const statusClasse = local.status === 'concluido' ? 'badge-concluido' : 'badge-futuro';
+
+                card.innerHTML = `
+                    <div class="aventura-card-topo">
+                        <h4 class="aventura-card-titulo">${local.titulo}</h4>
+                        <span class="aventura-status-badge ${statusClasse}">${statusTexto}</span>
+                    </div>
+                    <p class="aventura-card-desc">${local.desc}</p>
+                `;
+                listaEl.appendChild(card);
+            });
+
+            const contadorEl = document.getElementById('aventuras-contador');
+            if (contadorEl) {
+                const concluidos = locais.filter(l => l.status === 'concluido').length;
+                contadorEl.textContent = `${concluidos}/${locais.length} concluídos`;
+            }
+        }
+
+        renderizarListaAventuras();
+
         function openTab(tabId, isMap = false) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -1638,7 +1905,7 @@
 
         function initMap() {
             if (mapInitialized) {
-                map.invalidateSize(); 
+                setTimeout(() => map.invalidateSize(), 150); 
                 return;
             }
             
@@ -1647,24 +1914,6 @@
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap'
             }).addTo(map);
-
-            // Lista de eventos: status "concluido" (com foto) ou "futuro" (sem foto)
-            const locais = [
-                { lat: -23.6417,  lng: -46.5327,  titulo: "Banho de chuva",                   desc: "16/01/26 | Old baby home",                                      status: "concluido", foto: "assets/0-chuva.jpg" },
-                { lat: -23.563,   lng: -46.666,   titulo: "1º Date no Botanikafé",            desc: "26/07/26 | Alameda Lorena, 1765 - Jardins",                     status: "concluido", foto: "assets/1-botanikafe.jpg" },
-                { lat: -23.565,   lng: -46.697,   titulo: "Aula de Dança",                    desc: "Data Proposta: 12/12/26 | Westside Full",                       status: "futuro",    foto: null },
-                { lat: -23.2198,  lng: -44.7130,  titulo: "Viagem para a praia",              desc: "05/06/26 | Paraty, RJ",                                         status: "concluido", foto: "assets/3-praia-paraty.jpg" },
-                { lat: -23.6152,  lng: -46.6286,  titulo: "Noite de pintura de telas",        desc: "03/06/26 | Baby home",                                          status: "concluido", foto: "assets/4-pintura.jpg" },
-                { lat: -23.437,   lng: -46.625,   titulo: "Trilha nível INICIANTE",           desc: "Data Proposta: 19/12/26 | Mirante da Pedra Grande, Cantareira", status: "futuro",    foto: null },
-                { lat: -23.238,   lng: -44.646,   titulo: "Ver o céu estrelado",              desc: "05/06/26 | Paraty Mirim, RJ",                                   status: "concluido", foto: "assets/5-ceu-estrelado.jpg" },
-                { lat: -23.543,   lng: -46.642,   titulo: "Free walking tour e date de cores", desc: "10/03/26 | Praça da República, SP",                            status: "concluido", foto: "assets/6-walking-tour.jpg" },
-                { lat: -23.097,   lng: -47.013,   titulo: "Aventura Hopi Hari / Asa Delta",   desc: "28/03/26 | Hopi Hari, SP",                                      status: "concluido", foto: "assets/7-aventura.jpg" },
-                { lat: -23.584,   lng: -46.642,   titulo: "Comer num restaurante Michelin",   desc: "Data Proposta: 11/11/26 | AE! Cozinha - Vila Mariana",          status: "futuro",    foto: null },
-                { lat: -23.616413, lng: -46.628098, titulo: "Descobrir um lugar novo (Mariah's)", desc: "02/07/26 | Rua Lomas Valentinas, 410 - SP",               status: "concluido", foto: "assets/9-mariahs.jpg" },
-                { lat: -23.555,   lng: -46.634,   titulo: "Show do Don L",                    desc: "29/05/26 | Cine Joia",                                          status: "concluido", foto: "assets/10-don-l.jpg" },
-                { lat: -23.527,   lng: -46.678,   titulo: "Show da Liniker",                  desc: "11/07/26 | Nu Arena, SP",                                       status: "concluido", foto: "assets/10-liniker.jpg" },
-                { lat: -23.597,   lng: -46.602,   titulo: "Jantar em casa, menu completo",    desc: "Data Proposta: 06/12/26 | Rua Dr. Elisio de Castro, 429",       status: "futuro",    foto: null }
-            ];
 
             // Path SVG do coração (reutilizado pelos dois ícones)
             const heartPath = "M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2 c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z";
@@ -1698,7 +1947,7 @@
                      <span style="color:#594D6B; margin-top:6px; display:inline-block; font-size:0.95rem; font-weight:600;">${local.desc}</span>
                  </div>`;
 
-            locais.forEach(local => {
+            locais.forEach((local, index) => {
                 let icon;
                 let conteudo;
 
@@ -1713,8 +1962,18 @@
                 }
 
                 // bindTooltip é usado no lugar de bindPopup para ativar ao passar o rato (hover)
-                L.marker([local.lat, local.lng], { icon }).addTo(map)
+                const marker = L.marker([local.lat, local.lng], { icon }).addTo(map)
                  .bindTooltip(conteudo, tooltipOptions);
+
+                local.marker = marker;
+
+                marker.on('click', () => {
+                    focarLocalAventura(index);
+                    const card = document.getElementById(`aventura-card-${index}`);
+                    if (card) {
+                        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                });
             });
 
             // Enquadra o mapa para mostrar todos os corações

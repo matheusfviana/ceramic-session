@@ -1841,6 +1841,13 @@
                 card.classList.toggle('ativo', i === index);
             });
 
+            // Fecha qualquer visualização/balão aberto anteriormente
+            locais.forEach(l => {
+                if (l.marker) {
+                    l.marker.closeTooltip();
+                }
+            });
+
             if (!map) {
                 initMap();
             }
@@ -1852,6 +1859,12 @@
 
                 if (local.marker) {
                     setTimeout(() => {
+                        // Garante que somente o balão do item focado fique visível
+                        locais.forEach(l => {
+                            if (l !== local && l.marker) {
+                                l.marker.closeTooltip();
+                            }
+                        });
                         local.marker.openTooltip();
                     }, 350);
                 }
@@ -1978,6 +1991,14 @@
 
             // Enquadra o mapa para mostrar todos os corações
             map.fitBounds(locais.map(l => [l.lat, l.lng]), { padding: [40, 40] });
+
+            // Clicar fora de um marcador fecha a visualização aberta e limpa o destaque da lista
+            map.on('click', () => {
+                locais.forEach(l => {
+                    if (l.marker) l.marker.closeTooltip();
+                });
+                document.querySelectorAll('.aventura-card').forEach(card => card.classList.remove('ativo'));
+            });
 
             mapInitialized = true;
         }

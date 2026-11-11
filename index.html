@@ -135,70 +135,149 @@
             display: block;
         }
 
-        /* Grid de Fotos do Acervo - Estilo Vibrante e Colorido */
+        /* === PAREDE DE MUSEU DO ACERVO === */
+        #fotos.tab-content {
+            max-width: 1400px;
+        }
+
+        .parede-museu-moldura {
+            position: relative;
+            background: #1F1006;
+            border: 18px solid #3E1E09;
+            border-radius: 28px;
+            box-shadow: 
+                inset 0 0 30px rgba(0, 0, 0, 0.9),
+                0 0 0 4px #1A0B03,
+                0 0 0 8px #5E3213,
+                8px 12px 0px var(--text-main);
+            overflow: hidden;
+            margin: 25px auto 10px;
+        }
+
+        /* Friso dourado interno da grande moldura */
+        .parede-museu-moldura::before {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            border: 2px solid rgba(212, 175, 55, 0.55);
+            border-radius: 12px;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Fundo de ripas de madeira nobre com iluminação de galeria */
+        .parede-museu-madeira {
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(255, 230, 180, 0.28) 0%, rgba(255, 230, 180, 0.05) 50%, transparent 75%),
+                repeating-linear-gradient(90deg, 
+                    rgba(255, 255, 255, 0.02) 0px, 
+                    rgba(255, 255, 255, 0.02) 1px, 
+                    rgba(0, 0, 0, 0.35) 2px, 
+                    transparent 2px, 
+                    transparent 85px),
+                linear-gradient(180deg, #4A250F 0%, #341808 50%, #200D04 100%);
+            padding: 40px 30px;
+            max-height: 72vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scrollbar-width: thin;
+            scrollbar-color: #D4AF37 #200D04;
+        }
+
+        .parede-museu-madeira::-webkit-scrollbar {
+            width: 10px;
+        }
+        .parede-museu-madeira::-webkit-scrollbar-track {
+            background: #200D04;
+            border-radius: 5px;
+        }
+        .parede-museu-madeira::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 5px;
+            border: 2px solid #341808;
+        }
+
+        /* Grid de Quadros menores na parede */
         .grid-galeria {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 32px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+            gap: 28px 22px;
+            justify-items: center;
+            align-items: start;
+            margin-top: 0;
         }
 
+        /* Caixinha menor com Moldura de Quadro Clássico de Museu */
         .cartao {
-            background: #FFFFFF;
-            border: 2px solid var(--text-main);
-            border-radius: 20px;
+            background: #FFFDF9;
+            border: 6px solid #281305;
+            border-radius: 8px;
             overflow: hidden;
             text-align: center;
-            box-shadow: 6px 6px 0px var(--sun);
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-
-        .cartao:nth-child(4n+2) {
-            box-shadow: 6px 6px 0px var(--coral);
-        }
-        .cartao:nth-child(4n+3) {
-            box-shadow: 6px 6px 0px var(--mint);
-        }
-        .cartao:nth-child(4n) {
-            box-shadow: 6px 6px 0px var(--purple);
+            box-shadow: 
+                0 8px 18px rgba(0, 0, 0, 0.6),
+                0 2px 6px rgba(0, 0, 0, 0.4),
+                inset 0 0 0 2px #D4AF37;
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.25s ease;
+            width: 100%;
+            max-width: 205px;
+            padding: 8px 8px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .cartao:hover {
-            transform: translateY(-6px);
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 
+                0 16px 30px rgba(0, 0, 0, 0.75),
+                0 0 16px rgba(255, 215, 0, 0.45),
+                inset 0 0 0 2px #FFD166;
         }
 
+        /* Foto do Quadro com Passe-partout */
         .cartao img, .cartao video {
             width: 100%;
             aspect-ratio: 3 / 4;
             object-fit: cover;
-            border-bottom: 2px solid var(--text-main);
+            border: 1px solid rgba(0, 0, 0, 0.35);
+            border-radius: 3px;
             display: block;
-            transition: transform 0.4s ease;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.45);
+            transition: transform 0.35s ease;
         }
 
         .cartao:hover img {
-            transform: scale(1.03);
+            transform: scale(1.04);
         }
 
+        /* Plaquinha de museu de latão sob o quadro */
         .cartao-info {
-            padding: 18px 16px;
-            background: #FFFFFF;
+            padding: 6px 8px;
+            margin-top: 8px;
+            width: 100%;
+            background: linear-gradient(135deg, #F8E5AE 0%, #D4AF37 50%, #996F04 100%);
+            border: 1px solid #6E4E03;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            text-align: center;
         }
         
         .cartao-info h3 { 
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 1.2rem; 
+            font-family: 'Fraunces', serif;
+            font-size: 0.85rem; 
             font-weight: 700;
             margin: 0; 
-            color: var(--text-main);
+            color: #231404;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.25;
+            letter-spacing: -0.2px;
         }
         
         .cartao-info p { 
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 0.95rem; 
-            font-weight: 600;
-            color: var(--text-light);
-            margin-top: 6px;
+            display: none;
         }
 
         /* === ABA AVENTURAS: LISTA À ESQUERDA E MAPA À DIREITA === */
@@ -1018,6 +1097,26 @@
             .playlist-narrativa-box {
                 padding: 30px 20px;
             }
+            .parede-museu-moldura {
+                border-width: 10px;
+                border-radius: 18px;
+            }
+            .parede-museu-madeira {
+                padding: 20px 12px;
+                max-height: 65vh;
+            }
+            .grid-galeria {
+                grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+                gap: 16px 12px;
+            }
+            .cartao {
+                max-width: 165px;
+                border-width: 4px;
+                padding: 6px 6px 8px;
+            }
+            .cartao-info h3 {
+                font-size: 0.75rem;
+            }
         }
 
         /* === MODAL / LIGHTBOX DO ACERVO (EXPANDIR E GIRAR) === */
@@ -1027,24 +1126,24 @@
         }
 
         #fotos .cartao::after {
-            content: "🔍 Clique para expandir";
+            content: "🔍 Expandir";
             position: absolute;
-            bottom: 60px;
+            top: -12px;
             left: 50%;
-            transform: translateX(-50%) translateY(10px);
-            background: rgba(30, 21, 42, 0.9);
-            color: #FFFFFF;
-            padding: 5px 12px;
+            transform: translateX(-50%) translateY(4px);
+            background: rgba(30, 21, 42, 0.95);
+            color: #FFD166;
+            padding: 3px 10px;
             border-radius: 999px;
-            font-size: 0.8rem;
-            font-weight: 700;
+            font-size: 0.72rem;
+            font-weight: 800;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.25s ease, transform 0.25s ease;
+            transition: opacity 0.2s ease, transform 0.2s ease;
             white-space: nowrap;
-            z-index: 3;
-            border: 1px solid var(--sun);
-            box-shadow: 2px 2px 0px var(--text-main);
+            z-index: 15;
+            border: 1px solid #FFD166;
+            box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.4);
         }
 
         #fotos .cartao:hover::after {
@@ -1301,7 +1400,9 @@
         <!-- ACERVO -->
         <div id="fotos" class="tab-content">
             <h2>Nosso Acervo</h2>
-            <div class="grid-galeria">
+            <div class="parede-museu-moldura">
+                <div class="parede-museu-madeira">
+                    <div class="grid-galeria">
                 <div class="cartao">
                     <img src="assets/acervo1.jpg" alt="O Cachorro Incompreendido" onerror="this.src='https://placehold.co/600x800/FF4D6D/FFFFFF?text=ACERVO+1'">
                     <div class="cartao-info">
@@ -1370,6 +1471,8 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
         <!-- MÚSICAS -->
         <div id="musicas" class="tab-content">
